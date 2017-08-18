@@ -28,8 +28,8 @@
         "../node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js",
         "../node_modules/admin-lte/bootstrap/js/bootstrap.min.js",
         "../node_modules/admin-lte/plugins/jQueryUI/jquery-ui.min.js",
-        "../node_modules/admin-lte/dist/js/pages/dashboard.js",
-        "../node_modules/admin-lte/dist/js/app.min.js"
+        "../node_modules/admin-lte/dist/js/app.min.js",
+        "../node_modules/admin-lte/dist/js/pages/dashboard.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
