@@ -80,7 +80,6 @@ class MenuElement {
     this.removeable = removeable;
     this.titel = titel;
   }
-
 }
 
 
