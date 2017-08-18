@@ -28,21 +28,47 @@
     </form>
     <!-- /.search form -->
 
+
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">HEADER</li>
       <!-- Optionally, you can add icons to the links -->
-      <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-      <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
       <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+        <a href="#"><i class="fa fa-tachometer"></i> <span>Dashboards</span>
               <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
         <ul class="treeview-menu">
-          <li><a href="#">Link in level 2</a></li>
-          <li><a href="#">Link in level 2</a></li>
+          <li *ngFor="let dashboard of dashboards">
+            <a href="#">{{dashboard.titel}} <i *ngIf="dashboard.removeable; then trash else notrash" ></i>
+            <ng-template #trash><i class="fa fa-trash pull-right" (click)="removeDashboard(dashboard)"></i></ng-template>
+            <ng-template #notrash><i class="pull-right"></i></ng-template></a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#"><i class="fa fa-thumb-tack"></i> <span>Aktive Widgets</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+        <ul class="treeview-menu">
+          <li *ngFor="let active of activeWidgets">
+            <a href="#">{{active.titel}}<i class="fa fa-trash pull-right" (click)="removeWidget(active)"></i></a>
+          </li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Widget Kartotek</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+        <ul class="treeview-menu">
+          <li *ngFor="let widget of allWidgets">
+            <a href="#" (click)="addWidget(widget)">{{widget.titel}}</a>
         </ul>
       </li>
     </ul>
