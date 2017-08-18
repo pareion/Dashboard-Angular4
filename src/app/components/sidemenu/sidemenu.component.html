@@ -28,6 +28,7 @@
     </form>
     <!-- /.search form -->
 
+
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">HEADER</li>
@@ -39,9 +40,14 @@
                 </span>
             </a>
         <ul class="treeview-menu">
-          <li><a href="#">Dashboard 1 <i class="fa fa-trash pull-right"></i> </a></li>
+          <li *ngFor="let dashboard of dashboards">
+            <a href="#">{{dashboard.titel}} <i *ngIf="dashboard.removeable; then trash else notrash" ></i>
+            <ng-template #trash><i class="fa fa-trash pull-right" (click)="removeDashboard(dashboard)"></i></ng-template>
+            <ng-template #notrash><i class="pull-right"></i></ng-template></a>
+          </li>
         </ul>
       </li>
+
       <li class="treeview">
         <a href="#"><i class="fa fa-thumb-tack"></i> <span>Aktive Widgets</span>
               <span class="pull-right-container">
@@ -49,7 +55,9 @@
                 </span>
             </a>
         <ul class="treeview-menu">
-          <!--<li><a href="#">Link in level 2</a></li>-->
+          <li *ngFor="let active of activeWidgets">
+            <a href="#">{{active.titel}}<i class="fa fa-trash pull-right" (click)="removeWidget(active)"></i></a>
+          </li>
         </ul>
       </li>
       <li class="treeview">
@@ -59,7 +67,8 @@
                 </span>
             </a>
         <ul class="treeview-menu">
-          <!--<li><a href="#">Link in level 2</a></li>-->
+          <li *ngFor="let widget of allWidgets">
+            <a href="#" (click)="addWidget(widget)">{{widget.titel}}</a>
         </ul>
       </li>
     </ul>
