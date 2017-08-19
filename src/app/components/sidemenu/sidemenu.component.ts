@@ -21,7 +21,7 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
     //Convert all widgets to MenuElements from WidgetLibrary
     for (var index = 0; index < this.widgetService.widgets.length; index++) {
-      let element = new MenuElement(false, this.widgetService.widgets[index].title);
+      let element = new MenuElement(this.widgetService.widgets[index].id, false, this.widgetService.widgets[index].title);
       //Add to allWidgets
       this.allWidgets.push(element);
     }
@@ -29,8 +29,8 @@ export class SidemenuComponent implements OnInit {
     //TO DO: Fill all properties in activeWidgets according to user configuration
 
     //Test Data - Dashboard
-    this.dashboards.push(new MenuElement(true, "Oversigt"));
-    this.dashboards.push(new MenuElement(true, "Kun Kort"));
+    this.dashboards.push(new MenuElement(1, true, "Oversigt"));
+    this.dashboards.push(new MenuElement(2, true, "Kun Kort"));
   }
 
   newDashboard(){
@@ -57,6 +57,7 @@ export class SidemenuComponent implements OnInit {
     if (!this.activeWidgets.includes(widget)) {
       //put it on activelist if it doesnt
       this.activeWidgets.push(widget);
+      this.widgetService.spawnWidget(widget.widgetId);
     }
     //TO DO: Save to user configuration
   }
@@ -77,11 +78,13 @@ export class SidemenuComponent implements OnInit {
 }
 
 class MenuElement {
+  widgetId: number;
   removeable: boolean;
   titel: string;
 
-  constructor(removeable: boolean, titel: string) {
+  constructor(widgetId: number, removeable: boolean, titel: string) {
     //Init properties
+    this.widgetId = widgetId;
     this.removeable = removeable;
     this.titel = titel;
   }
