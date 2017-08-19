@@ -68,6 +68,7 @@ export class SidemenuComponent implements OnInit {
       //Remove it
       for (var index = 0; index < this.activeWidgets.length; index++) {
         if(this.activeWidgets[index] == widget){
+          this.widgetService.removeWidget(widget.widgetId);
           this.activeWidgets.splice(index,1);
           break; // found, stop loop
         }

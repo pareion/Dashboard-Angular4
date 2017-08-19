@@ -4,12 +4,15 @@ import { Injectable } from '@angular/core';
 export class WidgetLibraryService {
   widgets: IWidget[];
   widgetsToBeSpawned: IWidget[];
+  widgetsToBeRemoved: IWidget[];
   public spawn: { (): void; }; //<--- acts like a delegate that will fire event
+  public remove: { (): void; }; //<--- acts like a delegate that will fire event
 
   constructor() {
     //init the array
     this.widgets = [];
     this.widgetsToBeSpawned = [];
+    this.widgetsToBeRemoved = [];
     //Register all widgets here
     this.widgets.push(new TestWidget());
     this.widgets.push(new Test2Widget());
@@ -35,11 +38,20 @@ export class WidgetLibraryService {
   ngOnInit() { }
 
   spawnWidget(id: number) {
-    //Find widget - todo: ID
     for (var index = 0; index < this.widgets.length; index++) {
       if (this.widgets[index].id == id) {
         this.widgetsToBeSpawned.push(this.widgets[index]);
         this.spawn();
+        break;
+      }
+    }
+  }
+
+  removeWidget(id: number) {
+    for (var index = 0; index < this.widgets.length; index++) {
+      if (this.widgets[index].id == id) {
+        this.widgetsToBeRemoved.push(this.widgets[index]);
+        this.remove();
         break;
       }
     }
