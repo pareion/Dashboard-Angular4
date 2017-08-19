@@ -8,6 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { WidgetareaComponent } from './components/widgetarea/widgetarea.component';
 import { ControlsidebarComponent } from './components/controlsidebar/controlsidebar.component';
 
+import { WidgetLibraryService } from './services/widget-library.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,7 @@ import { ControlsidebarComponent } from './components/controlsidebar/controlside
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [WidgetLibraryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
