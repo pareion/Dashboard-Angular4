@@ -24,7 +24,8 @@ import { TestboxComponent } from './components/widgets/testbox/testbox.component
     ControlsidebarComponent,
     WidgetHostDirective,
     //Dynamic Widgets----->
-    TestboxComponent
+    TestboxComponent,
+
   ],
   imports: [
     BrowserModule

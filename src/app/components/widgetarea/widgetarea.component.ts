@@ -3,6 +3,7 @@ import { WidgetComponent } from './../../services/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
 import { Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy  } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widget-library.service';
+declare var $:any;
 
 @Component({
   selector: 'app-widgetarea',
@@ -27,11 +28,16 @@ export class WidgetareaComponent {
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.widgetService.widgetsToBeSpawned[index].component);
 
     let viewContainerRef = this.widgetHost.viewContainerRef;
-    viewContainerRef.clear();
 
     let componentRef = viewContainerRef.createComponent(componentFactory);
     (<WidgetComponent>componentRef.instance).id = this.widgetService.widgetsToBeSpawned[index].id;
     (<WidgetComponent>componentRef.instance).title = this.widgetService.widgetsToBeSpawned[index].title;
+
+    this.widgetService.widgetsToBeSpawned.splice(index, 1);
+
+    //$(document.body).html("background-color: #f00");
+    var $sortableList = $("#sam");
+    $sortableList.sortable("refresh");
     }
   }
 

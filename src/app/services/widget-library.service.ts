@@ -1,6 +1,5 @@
-import { WidgetItem } from './widget-item';
-import { WidgetComponent } from './widget.component';
 import { Injectable } from '@angular/core';
+import { WidgetItem } from './widget-item';
 import { TestboxComponent } from './../components/widgets/testbox/testbox.component';
 
 @Injectable()
