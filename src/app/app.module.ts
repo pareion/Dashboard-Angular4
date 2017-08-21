@@ -12,6 +12,7 @@ import { WidgetLibraryService } from './services/widget-library.service';
 import { WidgetHostDirective } from './directives/widget-host.directive';
 
 import { TestboxComponent } from './components/widgets/testbox/testbox.component';
+import { Test2Component } from './components/widgets/test2/test2.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +25,13 @@ import { TestboxComponent } from './components/widgets/testbox/testbox.component
     ControlsidebarComponent,
     WidgetHostDirective,
     //Dynamic Widgets----->
-    TestboxComponent
+    TestboxComponent,
+    Test2Component
   ],
   imports: [
     BrowserModule
   ],
-  entryComponents: [TestboxComponent], //<--- Dynamic Components resgiter here
+  entryComponents: [TestboxComponent, Test2Component], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService],
   bootstrap: [AppComponent]
 })
