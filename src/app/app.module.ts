@@ -9,19 +9,27 @@ import { WidgetareaComponent } from './components/widgetarea/widgetarea.componen
 import { ControlsidebarComponent } from './components/controlsidebar/controlsidebar.component';
 
 import { WidgetLibraryService } from './services/widget-library.service';
+import { WidgetHostDirective } from './directives/widget-host.directive';
+
+import { TestboxComponent } from './components/widgets/testbox/testbox.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    //Layout ----->
     TopmenuComponent,
     SidemenuComponent,
     FooterComponent,
     WidgetareaComponent,
-    ControlsidebarComponent
+    ControlsidebarComponent,
+    WidgetHostDirective,
+    //Dynamic Widgets----->
+    TestboxComponent
   ],
   imports: [
     BrowserModule
   ],
+  entryComponents: [TestboxComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService],
   bootstrap: [AppComponent]
 })
