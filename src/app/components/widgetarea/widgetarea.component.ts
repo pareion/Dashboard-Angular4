@@ -3,8 +3,7 @@ import { WidgetComponent } from './../../services/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
 import { Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy  } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widget-library.service';
-//import * as $ from '../../../../node_modules/admin-lte\plugins\jQueryUI\jquery-ui.js --allowJs';
-var $ = $;
+declare var $:any;
 
 @Component({
   selector: 'app-widgetarea',
@@ -35,6 +34,10 @@ export class WidgetareaComponent {
     (<WidgetComponent>componentRef.instance).title = this.widgetService.widgetsToBeSpawned[index].title;
 
     this.widgetService.widgetsToBeSpawned.splice(index, 1);
+
+    //$(document.body).html("background-color: #f00");
+    var $sortableList = $("#sam");
+    $sortableList.sortable("refresh");
     }
   }
 
