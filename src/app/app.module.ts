@@ -10,8 +10,12 @@ import { ControlsidebarComponent } from './components/controlsidebar/controlside
 
 import { WidgetLibraryService } from './services/widget-library.service';
 import { WidgetHostDirective } from './directives/widget-host.directive';
+import { GmapService } from './components/widgets/stationskort/gmap.service';
 
 import { TestboxComponent } from './components/widgets/testbox/testbox.component';
+import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
+
+
 
 @NgModule({
   declarations: [
@@ -25,13 +29,13 @@ import { TestboxComponent } from './components/widgets/testbox/testbox.component
     WidgetHostDirective,
     //Dynamic Widgets----->
     TestboxComponent,
-
+    StationskortComponent
   ],
   imports: [
     BrowserModule
   ],
-  entryComponents: [TestboxComponent], //<--- Dynamic Components resgiter here
-  providers: [WidgetLibraryService],
+  entryComponents: [TestboxComponent, StationskortComponent], //<--- Dynamic Components resgiter here
+  providers: [WidgetLibraryService, GmapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
