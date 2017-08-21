@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { WidgetComponent } from '../../../services/widget.component';
 
 @Component({
-  selector: 'app-testbox',
+  selector: '[app-testbox]',
   templateUrl: './testbox.component.html',
   styleUrls: ['./testbox.component.css']
 })
