@@ -2,6 +2,7 @@ import { WidgetItem } from './widget-item';
 import { WidgetComponent } from './widget.component';
 import { Injectable } from '@angular/core';
 import { TestboxComponent } from './../components/widgets/testbox/testbox.component';
+import { StationskortComponent } from './../components/widgets/stationskort/stationskort.component';
 
 @Injectable()
 export class WidgetLibraryService {
@@ -18,6 +19,7 @@ export class WidgetLibraryService {
     this.widgetsToBeRemoved = [];
     //Register all widgets here
     this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks 1'));
+    this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
     //--------> Add more here
 
     //Sort array based on title name
