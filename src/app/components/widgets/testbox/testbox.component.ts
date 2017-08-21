@@ -9,9 +9,17 @@ import { WidgetComponent } from '../../../services/widget.component';
 export class TestboxComponent implements WidgetComponent, OnInit {
   @Input() id: number;
   @Input() title: string;
+  number: number;
 
-  //constructor() { }
+  constructor() {
+    this.number = 0;
+   }
   ngOnInit() {
-    alert("Hello");
+    
+  }  
+
+  add(){
+    this.number += 1;
   }
 }
+
