@@ -42,5 +42,7 @@ export class GmapService {
     window.document.body.appendChild(script);
   }
 
-  
+  addMarker(lat: number, lng: number): void{
+      new google.maps.Marker({map: this.map, position: {lat:lat, lng:lng}});
+  }
 }
