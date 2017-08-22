@@ -78,7 +78,7 @@ export class StationskortComponent implements WidgetComponent, OnInit {
       {"status":"?","direction":"?","expectedInterval":"5","longtitude":"10.3815","stationType":"CA Profiler eller Traffic Monitor på GPRS","name":"Skovalleen - [PR]","installDate":"01-02-2011","source":"ATKI A/S","stationID":"46174560","lattitude":"55.3698"}];  
 
       stations.forEach((station) => {
-        this.gmapService.addMarker(Number(station.lattitude), Number(station.longtitude), station.name);
+        this.gmapService.addMarker(Number(station.lattitude), Number(station.longtitude), station.name + "\nUdstyrstype: "+ station.stationType + "\nInstallationsdato: " + station.installDate + "\nKilde: " + station.source + "\nStatus: " + station.status);
       });
     }));
     
