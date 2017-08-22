@@ -18,7 +18,11 @@ export class StationskortComponent implements WidgetComponent, OnInit {
     (this.gmapService.initMap(this.mapRef.nativeElement, {
       center: { lat: 55.3931161, lng: 10.3854726 },
       scrollwheel: true,
-      zoom: 11
+      zoom: 11,
+      minZoom:11,
+      maxZoom: 16,
+      streetViewControl: false,
+      mapTypeControl: false
     }).then(() => {
       var stations = [{"status":"?","direction":"?","expectedInterval":"5","longtitude":"10.5019","stationType":"OE Fartviser med Moxa på GPRS","name":"Birkum Nord","installDate":"28-11-2011","source":"ATKI A/S","stationID":"51910323","lattitude":"55.3417"},
       {"status":"?","direction":"?","expectedInterval":"5","longtitude":"10.503","stationType":"OE Fartviser med Moxa på GPRS","name":"Birkum Syd","installDate":"28-11-2011","source":"ATKI A/S","stationID":"51910626","lattitude":"55.3392"},
@@ -79,6 +83,7 @@ export class StationskortComponent implements WidgetComponent, OnInit {
 
       stations.forEach((station) => {
         this.gmapService.addMarker(Number(station.lattitude), Number(station.longtitude), station.name + "\nUdstyrstype: "+ station.stationType + "\nInstallationsdato: " + station.installDate + "\nKilde: " + station.source + "\nStatus: " + station.status);
+
       });
     }));
     
