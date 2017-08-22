@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WidgetLibraryService } from '../../services/widget-library.service';
+import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -21,7 +21,7 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
     //Convert all widgets to MenuElements from WidgetLibrary
     for (var index = 0; index < this.widgetService.widgets.length; index++) {
-      let element = new MenuElement(this.widgetService.widgets[index].id, false, this.widgetService.widgets[index].title);
+      let element = new MenuElement(this.widgetService.widgets[index].id, false, false, this.widgetService.widgets[index].title);
       //Add to allWidgets
       this.allWidgets.push(element);
     }
@@ -29,8 +29,8 @@ export class SidemenuComponent implements OnInit {
     //TO DO: Fill all properties in activeWidgets according to user configuration
 
     //Test Data - Dashboard
-    this.dashboards.push(new MenuElement(1, true, "Oversigt"));
-    this.dashboards.push(new MenuElement(2, true, "Kun Kort"));
+    this.dashboards.push(new MenuElement(1, true, true, "Oversigt"));
+    this.dashboards.push(new MenuElement(2, true, true, "Kun Kort"));
   }
 
   newDashboard(){
@@ -58,6 +58,12 @@ export class SidemenuComponent implements OnInit {
       //put it on activelist if it doesnt
       this.activeWidgets.push(widget);
       this.widgetService.spawnWidget(widget.widgetId);
+      //Set widget on widget list to active
+      for (var index = 0; index < this.allWidgets.length; index++) {
+        if(this.allWidgets[index] == widget){
+          this.allWidgets[index].active = true;
+        } 
+      }
     }
     //TO DO: Save to user configuration
   }
@@ -70,6 +76,12 @@ export class SidemenuComponent implements OnInit {
         if(this.activeWidgets[index] == widget){
           this.widgetService.removeWidget(widget.widgetId);
           this.activeWidgets.splice(index,1);
+          //Remove active
+          for (var index = 0; index < this.allWidgets.length; index++) {
+            if(this.allWidgets[index] == widget){
+            this.allWidgets[index].active = false;
+            } 
+          }
           break; // found, stop loop
         }
       }
@@ -81,12 +93,14 @@ export class SidemenuComponent implements OnInit {
 class MenuElement {
   widgetId: number;
   removeable: boolean;
+  active: boolean
   titel: string;
 
-  constructor(widgetId: number, removeable: boolean, titel: string) {
+  constructor(widgetId: number, removeable: boolean, active: boolean, titel: string) {
     //Init properties
     this.widgetId = widgetId;
     this.removeable = removeable;
+    this.active = active;
     this.titel = titel;
   }
 }

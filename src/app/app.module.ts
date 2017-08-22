@@ -8,7 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { WidgetareaComponent } from './components/widgetarea/widgetarea.component';
 import { ControlsidebarComponent } from './components/controlsidebar/controlsidebar.component';
 
-import { WidgetLibraryService } from './services/widget-library.service';
+import { WidgetLibraryService } from './services/widgetLibrary-service/widget-library.service';
 import { WidgetHostDirective } from './directives/widget-host.directive';
 import { GmapService } from './components/widgets/stationskort/gmap.service';
 

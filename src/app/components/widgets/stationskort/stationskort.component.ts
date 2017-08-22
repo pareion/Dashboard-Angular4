@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild,ElementRef  } from '@angular/core';
-import { WidgetComponent } from '../../../services/widget.component';
+import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
 import { GmapService } from '../../../components/widgets/stationskort/gmap.service';
 
 @Component({
