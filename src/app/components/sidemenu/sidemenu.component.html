@@ -56,7 +56,9 @@
             </a>
         <ul class="treeview-menu">
           <li *ngFor="let widget of allWidgets">
-            <a href="#" (click)="addWidget(widget)">{{widget.titel}}</a>
+            <a href="#" (click)="addWidget(widget)">{{widget.titel}}
+              <i [ngClass]="widget.active ? 'fa fa-eye pull-right' : ''"></i>
+            </a>
         </ul>
       </li>
     </ul>
