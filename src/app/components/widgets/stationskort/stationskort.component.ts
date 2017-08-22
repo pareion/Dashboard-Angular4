@@ -3,7 +3,7 @@ import { WidgetComponent } from '../../../services/widget.component';
 import { GmapService } from '../../../components/widgets/stationskort/gmap.service';
 
 @Component({
-  selector: 'app-stationskort',
+  selector: '[app-stationskort]',
   templateUrl: './stationskort.component.html',
   styleUrls: ['./stationskort.component.css']
 })
