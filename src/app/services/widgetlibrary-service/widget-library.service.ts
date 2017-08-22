@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WidgetItem } from './widget-item';
-import { TestboxComponent } from './../components/widgets/testbox/testbox.component';
-import { StationskortComponent } from './../components/widgets/stationskort/stationskort.component';
+import { TestboxComponent } from './../../components/widgets/testbox/testbox.component';
+import { StationskortComponent } from './../../components/widgets/stationskort/stationskort.component';
 
 @Injectable()
 export class WidgetLibraryService {

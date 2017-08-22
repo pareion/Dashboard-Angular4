@@ -1,9 +1,8 @@
-import { WidgetItem } from './../../services/widget-item';
-import { WidgetComponent } from './../../services/widget.component';
+import { WidgetItem } from './../../services/widgetlibrary-service/widget-item';
+import { WidgetComponent } from './../../services/widgetLibrary-service/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
 import { Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy  } from '@angular/core';
-import { WidgetLibraryService } from '../../services/widget-library.service';
-declare var $:any;
+import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 
 @Component({
   selector: 'app-widgetarea',
@@ -34,10 +33,6 @@ export class WidgetareaComponent {
     (<WidgetComponent>componentRef.instance).title = this.widgetService.widgetsToBeSpawned[index].title;
 
     this.widgetService.widgetsToBeSpawned.splice(index, 1);
-
-    //$(document.body).html("background-color: #f00");
-    var $sortableList = $("#sam");
-    $sortableList.sortable("refresh");
     }
   }
 

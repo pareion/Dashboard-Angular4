@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WidgetComponent } from '../../../services/widget.component';
+import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
 
 @Component({
   selector: '[app-testbox]',

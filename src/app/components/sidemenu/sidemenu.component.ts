@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WidgetLibraryService } from '../../services/widget-library.service';
+import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 
 @Component({
   selector: 'app-sidemenu',
