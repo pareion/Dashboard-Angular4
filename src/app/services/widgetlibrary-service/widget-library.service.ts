@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { WidgetItem } from './widget-item';
+
+//Component Import - Add here when you register component ---------->
 import { TestboxComponent } from './../../components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './../../components/widgets/stationskort/stationskort.component';
+//<------------------------------------------------------------------
 
 @Injectable()
 export class WidgetLibraryService {
@@ -17,7 +20,7 @@ export class WidgetLibraryService {
     this.widgetsToBeSpawned = [];
     this.widgetsToBeRemoved = [];
     //Register all widgets here
-    this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks 1'));
+    this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks'));
     this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
     //--------> Add more here
 
@@ -36,6 +39,8 @@ export class WidgetLibraryService {
     });
   }
 
+  //Finds widget based on id and fires spawn event. 
+  //Used by SideMenu
   spawnWidget(id: number) {
     for (var index = 0; index < this.widgets.length; index++) {
       if (this.widgets[index].id == id) {
@@ -46,6 +51,8 @@ export class WidgetLibraryService {
     }
   }
 
+  //Finds widget based on id and fires remove event.
+  //Ised by SideMenu
   removeWidget(id: number) {
     for (var index = 0; index < this.widgets.length; index++) {
       if (this.widgets[index].id == id) {
