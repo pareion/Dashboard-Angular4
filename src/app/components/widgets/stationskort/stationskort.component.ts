@@ -15,11 +15,14 @@ export class StationskortComponent implements WidgetComponent, OnInit {
     constructor(private gmapService: GmapService) { }
 
   ngOnInit() {
-    this.gmapService.initMap(this.mapRef.nativeElement, {
-      center: { lat: 56.2639, lng: 9.5018 },
+    (this.gmapService.initMap(this.mapRef.nativeElement, {
+      center: { lat: 55.3931161, lng: 10.3854726 },
       scrollwheel: true,
-      zoom: 7
-    });
+      zoom: 11
+    }).then(() => {
+        this.gmapService.addMarker(55.3417, 10.5019);
+    }));
+    
   }
 
 }
