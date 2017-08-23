@@ -7,8 +7,11 @@ describe('open-traffic-data.web App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('test sidebar toggle', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    page.toggleSideMenu();
+    expect(page.getBodyClass()).toEqual('sidebar-collapse');
+    page.toggleSideMenu();
+    expect(page.getBodyClass()).toEqual('');
   });
 });
