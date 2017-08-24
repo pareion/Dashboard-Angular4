@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
 import { GmapService } from '../../../components/widgets/stationskort/gmap.service';
 import { Http, Response } from '@angular/http';
