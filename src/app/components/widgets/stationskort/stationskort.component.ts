@@ -17,7 +17,7 @@ export class StationskortComponent implements WidgetComponent, OnInit {
   @ViewChild('map') mapRef: ElementRef;
 
   private apiUrl = "http://adm-trafik-01.odknet.dk:1000/api/Reader/GetAllStations";
-  data: any = {};
+  data: any = [];
 
   constructor(private gmapService: GmapService, private http: Http) {
     this.getData();
@@ -40,6 +40,7 @@ export class StationskortComponent implements WidgetComponent, OnInit {
   }
 
   initGoogleMap() {
+    let mapService = this.gmapService;
     (this.gmapService.initMap(this.mapRef.nativeElement, {
       center: { lat: 55.3931161, lng: 10.3854726 },
       scrollwheel: true,
@@ -49,10 +50,16 @@ export class StationskortComponent implements WidgetComponent, OnInit {
       streetViewControl: false,
       mapTypeControl: false
     }).then(() => {
-      //console.log(this.data);
-      this.data.forEach((marker) => {
-        this.gmapService.addMarker(Number(marker.latitude), Number(marker.longitude), marker.name + "\nUdsty: " + marker.equipmentType + "\nInstalleret: " + marker.installed);
-      });
+      this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(response => {
+        if(response){
+          for (var i in response) {
+            if (response.hasOwnProperty(i)) {
+              var marker = response[i];
+              mapService.addMarker(Number(marker.latitude), Number(marker.longitude), marker.name + "\nUdsty: " + marker.equipmentType + "\nInstalleret: " + marker.installed);
+            }
+          }
+        }
+      })
     }));
   }// end initGoogleMap
 }
