@@ -49,4 +49,8 @@ export class AppPage {
     var xpath = '//div[@' + component + ']';
     return element.all(by.xpath(xpath));
   }
+
+  getHTMLTag(tag: string){
+    return element.all(by.xpath('//'+tag));    
+  }
 }

@@ -8,6 +8,15 @@ describe('open-traffic-data.web App', () => {
     page.navigateTo();
   });
 
+  it('check that all layout components are displayed', () => {
+    expect(page.getHTMLTag('app-root').count()).toEqual(1);
+    expect(page.getHTMLTag('app-topmenu').count()).toEqual(1);
+    expect(page.getHTMLTag('app-sidemenu').count()).toEqual(1);
+    expect(page.getHTMLTag('app-widgetarea').count()).toEqual(1);
+    expect(page.getHTMLTag('app-footer').count()).toEqual(1);
+    expect(page.getHTMLTag('app-controlsidebar').count()).toEqual(1);
+  });
+
   it('test sidebar toggle', () => {
     page.toggleSideMenu();
     expect(page.getBodyClass()).toContain('sidebar-collapse');
