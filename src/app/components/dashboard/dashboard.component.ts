@@ -12,11 +12,11 @@ import { WidgetHostDirective } from './../../directives/widget-host.directive';
 
 export class DashboardComponent {
   @ViewChild(WidgetHostDirective) widgetHost: WidgetHostDirective;
-  activeWidgets: number[]; //Contains ID's of Widgets.
-
   id: number;
   type: DashboardType;
   title: string;
+  active: boolean;
+  activeWidgets: number[]; //ids of widget in order
   contentHeader: boolean;
   numCols: number; //Not implemented in html yet. Right now it's always 2 cols with 7 and 5 in bootstrap size.
 
@@ -25,6 +25,7 @@ export class DashboardComponent {
     this.id = id;
     this.type = type;
     this.title = title;
+    this.active = false;
     this.activeWidgets = [];
 
     this.setContentVariables();
@@ -61,14 +62,25 @@ export class DashboardComponent {
     let componentRef = viewContainerRef.createComponent(componentFactory);
     (<WidgetComponent>componentRef.instance).id = widget.id;
     (<WidgetComponent>componentRef.instance).title = widget.title;
+
+    //Add to active Widgets list
+    this.activeWidgets.push(widget.id);
   }
 
   //Subscriber method for clearing the standard widget into DOM.
-  public removeWidget(widget: WidgetItem, index: number) {
-      //Resolve the component.
-      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
-      let viewContainerRef = this.widgetHost.viewContainerRef;
-      //Remove it from the widgetarea by index.
-      viewContainerRef.remove(index)
+  public removeWidget(widget: WidgetItem) {
+    //Resolve the component.
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
+    let viewContainerRef = this.widgetHost.viewContainerRef;
+
+    //Find Widget index on active list
+    let activeWidgetIndex: number;
+    for (var index = 0; index < this.activeWidgets.length; index++) {
+      if (this.activeWidgets[index] == widget.id) {
+        activeWidgetIndex = index;
+      }
+    }
+    //Remove it from the widgetarea by index.
+    viewContainerRef.remove(activeWidgetIndex)
   }
 }

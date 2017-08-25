@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user-service/user.service';
 import { Component, OnInit } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 
@@ -11,7 +12,9 @@ export class SidemenuComponent implements OnInit {
   activeWidgets: MenuElement[];
   allWidgets: MenuElement[];
 
-  constructor(private widgetService:WidgetLibraryService) {
+  constructor(
+    private userService: UserService,
+    private widgetService: WidgetLibraryService) {
     //Init properties
     this.dashboards = [];
     this.activeWidgets = [];
@@ -21,29 +24,38 @@ export class SidemenuComponent implements OnInit {
   ngOnInit() {
     //Convert all widgets to MenuElements from WidgetLibrary
     for (var index = 0; index < this.widgetService.widgets.length; index++) {
-      let element = new MenuElement(this.widgetService.widgets[index].id, false, false, this.widgetService.widgets[index].title);
+      let element = new MenuElement(
+        this.widgetService.widgets[index].id,
+        false, false,
+        this.widgetService.widgets[index].title);
       //Add to allWidgets
       this.allWidgets.push(element);
     }
-    
-    //TO DO: Fill all properties in activeWidgets according to user configuration
 
-    //Test Data - Dashboard
-    this.dashboards.push(new MenuElement(1, true, true, "Oversigt"));
-    this.dashboards.push(new MenuElement(2, true, true, "Kun Kort"));
+    //Convert all widgets to MenuElements from User Configuratin
+    for (var index = 0; index < this.userService.user.configuration.dashboards.length; index++) {
+      let id = this.userService.user.configuration.dashboards[index].id;
+      let name = this.userService.user.configuration.dashboards[index].name;
+      let element = new MenuElement(id, true, true, name);
+      this.dashboards.push(element);
+    }
   }
 
-  newDashboard(){
+  changedashBoard(dashboardId: number) {
+
+  }
+
+  newDashboard() {
     //TO DO
   }
 
-  removeDashboard(dashboard){
+  removeDashboard(dashboard) {
     //Check if dashboard exists
-    if(this.dashboards.includes(dashboard)){
+    if (this.dashboards.includes(dashboard)) {
       //Remove it
       for (var index = 0; index < this.dashboards.length; index++) {
-        if(this.dashboards[index] == dashboard){
-          this.dashboards.splice(index,1);
+        if (this.dashboards[index] == dashboard) {
+          this.dashboards.splice(index, 1);
           break; // found, stop loop
         }
       }
@@ -60,9 +72,9 @@ export class SidemenuComponent implements OnInit {
       this.widgetService.spawnWidget(widget.widgetId);
       //Set widget on widget list to active
       for (var index = 0; index < this.allWidgets.length; index++) {
-        if(this.allWidgets[index] == widget){
+        if (this.allWidgets[index] == widget) {
           this.allWidgets[index].active = true;
-        } 
+        }
       }
     }
     //TO DO: Save to user configuration
@@ -70,17 +82,17 @@ export class SidemenuComponent implements OnInit {
 
   removeWidget(widget: MenuElement) {
     //Check if widget exists
-    if(this.activeWidgets.includes(widget)){
+    if (this.activeWidgets.includes(widget)) {
       //Remove it
       for (var index = 0; index < this.activeWidgets.length; index++) {
-        if(this.activeWidgets[index] == widget){
+        if (this.activeWidgets[index] == widget) {
           this.widgetService.removeWidget(widget.widgetId);
-          this.activeWidgets.splice(index,1);
+          this.activeWidgets.splice(index, 1);
           //Remove active
           for (var index = 0; index < this.allWidgets.length; index++) {
-            if(this.allWidgets[index] == widget){
-            this.allWidgets[index].active = false;
-            } 
+            if (this.allWidgets[index] == widget) {
+              this.allWidgets[index].active = false;
+            }
           }
           break; // found, stop loop
         }
