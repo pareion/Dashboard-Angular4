@@ -12,7 +12,7 @@ import { WidgetLibraryService } from '../../services/widgetLibrary-service/widge
 })
 export class WidgetareaComponent {
   @ViewChild(WidgetHostDirective) widgetHost: WidgetHostDirective;
-  activeWidgets: number[]; //Contains ID's of Widgets
+  activeWidgets: number[]; //Contains ID's of Widgets.
 
   constructor(
     private widgetService: WidgetLibraryService, 
@@ -42,10 +42,9 @@ export class WidgetareaComponent {
     }
   }
 
-  //To do: Comments
+  //Subscriber method for clearing the standard widget into DOM.
   removeWidget() {
     for (var index = 0; index < this.widgetService.widgetsToBeRemoved.length; index++) {
-      
       //Find widget index on active array list
       let activeWidgetIndex: number;
       for (var index2 = 0; index2 < this.activeWidgets.length; index2++) {
@@ -53,21 +52,16 @@ export class WidgetareaComponent {
           activeWidgetIndex = index2;
         }  
       }
-
+      //Resolve the component.
       let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.widgetService.widgetsToBeRemoved[index].component);
       let viewContainerRef = this.widgetHost.viewContainerRef;
-      viewContainerRef.remove(activeWidgetIndex);
+      //Remove it from the widgetarea by index.
+      viewContainerRef.remove(activeWidgetIndex)
       
-      //Remove from list
+      //Remove from active widget list
       this.activeWidgets.splice(activeWidgetIndex, 1);
       //Done - remove the widget from the array
       this.widgetService.widgetsToBeRemoved.splice(index, 1);
     }
   }
 }
-
-      //Find widget
-      //var elementId = this.widgetService.widgetsToBeRemoved[index].id.toString();
-      //var widgetRemove = document.getElementById(elementId);
-      //remove from document
-      //widgetRemove.remove();
