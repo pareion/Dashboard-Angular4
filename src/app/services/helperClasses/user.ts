@@ -12,6 +12,8 @@ export class User {
       firstname: string, lastname: string,
       department: string, occupation: string,
       configuration: Configuration = null) {
+        console.log("user constructor")
+
       this.first_name = firstname; this.last_name = lastname;
       this.department = department; this.occupation = occupation;
       if (configuration != null) {
@@ -19,7 +21,7 @@ export class User {
       }
       else {
         this.configuration = new Configuration()
-        this.configuration.dashboards.push(new Dashboard(1, "Nyt dashboard", DashboardType.Standard1Col));
+        this.configuration.dashboards.push(new Dashboard(1, "Nyt dashboard", DashboardType.TopWidgets2Col));
       }
     }
   }

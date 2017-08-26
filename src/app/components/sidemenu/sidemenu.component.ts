@@ -76,7 +76,7 @@ export class SidemenuComponent{
   setActiveWidgets(){
     //Sets the active widgets on current dashboard to active
     this.dashboardcontroller.getActiveDashboard().widgets.forEach(widgetId =>{
-      let widget = this.widgetService.getWidget(widgetId);
+      let widget = this.widgetService.getWidgetbyId(widgetId);
       let menuElement = new MenuElement(
         widget.id, true, true, widget.title);
         this.activeWidgets.push(menuElement);

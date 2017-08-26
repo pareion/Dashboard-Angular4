@@ -1,7 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section *ngIf="dashboard.removeable; then trash else notrash" class="content-header">
+  <section *ngIf="contentHeader; then trash else notrash" class="content-header">
     <ng-template #nocontentheader></ng-template>
     <ng-template #contentheader>
       <div class="row">

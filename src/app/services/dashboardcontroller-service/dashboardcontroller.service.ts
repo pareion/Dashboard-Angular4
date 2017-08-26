@@ -9,16 +9,18 @@ export class DashboardcontrollerService {
   //Subscriber is widgetarea which will handle the event
   public addWidgetEvent: { (widgetId: number): void; };
   public removeWidgetEvent: { (widgetId: number): void; };
-  public changeDashboardEvent: {( dashboardId: number): void; };
+  public changeDashboardEvent: { ( dashboardId: number): void; };
 
   //Private fiels to keep track of data
   private dashboards: Dashboard[];
   private activeDashboard: Dashboard;
 
   constructor(private userService: UserService) { 
-    this.dashboards = [];
+    this.dashboards = [];  
+    
     //Setup
     this.getDashboardConfiguration();
+    this.changeDashboardEvent(this.dashboards[0].id);
   }
   
   //loads in the dashboard configuration from user service
