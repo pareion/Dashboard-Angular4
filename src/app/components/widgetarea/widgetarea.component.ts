@@ -32,7 +32,7 @@ export class WidgetareaComponent {
 
   private addWidget(widgetId: number) {
     //Get Widget
-    let widget: WidgetItem = this.widgetService.getWidget(widgetId);
+    let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
     
     //Resolve component
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
@@ -49,7 +49,7 @@ export class WidgetareaComponent {
 
   private removeWidget(widgetId: number){
     //Get Widget
-    let widget: WidgetItem = this.widgetService.getWidget(widgetId);
+    let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
 
     //Resolve the component.
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);

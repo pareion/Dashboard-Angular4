@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { User } from "../helperClasses/user";
 import { Configuration } from "../helperClasses/configuration";
 import { Dashboard, DashboardType } from "../helperClasses/dashboard";
-import { User } from "../helperClasses/user";
 
 @Injectable()
 export class UserService {
@@ -14,17 +14,22 @@ export class UserService {
     this.getUserData();
   }
 
-  getUserData() {
+  public getUserData() {
     //if authenticated
     //Get user from server
     //Store in user variable
 
     //Test - Last parameter is null, so a configuration will be generated
-    this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant");
+    let dboard = new Dashboard(1, "lol", DashboardType.Standard2Col);
+    let dboards: Dashboard[];
+    dboards = [];
+    dboards.push(dboard);
+    let config = new Configuration()
+    this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant", config);
+
   }
 
-  //TODO
-  removeDashboard(dashboardId: number){
+  public removeDashboard(dashboardId: number){
     //Call api to remove
 
     //Remove from local data
@@ -33,19 +38,18 @@ export class UserService {
       if(this.user.configuration.dashboards[index].id == dashboardId){
         this.user.configuration.dashboards.splice(index, 1);
         break;
-      }
-      
+      }     
     }
   }
 
-  saveDashboard(dashboard: Dashboard){
+  public saveDashboard(dashboard: Dashboard){
     //Call api to add
 
     //Add to local data
     this.user.configuration.dashboards.push(dashboard);
   }
 
-  addWidget(widgetId: number, dashboardId: number){
+  public addWidget(widgetId: number, dashboardId: number){
     //Call api to add
 
     //Add to local data
@@ -53,12 +57,11 @@ export class UserService {
       if(this.user.configuration.dashboards[index].id == dashboardId){
         this.user.configuration.dashboards[index].widgets.push(widgetId);
         break;
-      }
-   
+      } 
     }
   }
 
-  removeWidget(widgetId: number, dashboardId: number){
+  public removeWidget(widgetId: number, dashboardId: number){
     //Call api to remove
 
     //Add to local data
