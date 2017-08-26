@@ -1,27 +1,46 @@
-import { UserService } from './../../services/user-service/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
+import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
+import { MenuElement } from "../../services/helperClasses/MenuElement";
 
 @Component({
   selector: 'app-sidemenu',
   templateUrl: './sidemenu.component.html',
   styleUrls: ['./sidemenu.component.css']
 })
-export class SidemenuComponent implements OnInit {
+
+export class SidemenuComponent{
   dashboards: MenuElement[];
   activeWidgets: MenuElement[];
   allWidgets: MenuElement[];
 
   constructor(
-    private userService: UserService,
+    private dashboardcontroller: DashboardcontrollerService,
     private widgetService: WidgetLibraryService) {
     //Init properties
     this.dashboards = [];
     this.activeWidgets = [];
     this.allWidgets = [];
+
+    this.setup();
   }
 
-  ngOnInit() {
+  setup()
+  {
+    this.clearMenu();
+    this.listAllDashboards();
+    this.listAllWidgets();
+    this.setActiveDashboard();
+    this.setActiveWidgets();
+  }
+
+  clearMenu() {
+    this.dashboards = [];
+    this.activeWidgets = [];
+    this.allWidgets = [];
+  }
+
+  listAllWidgets() {
     //Convert all widgets to MenuElements from WidgetLibrary
     for (var index = 0; index < this.widgetService.widgets.length; index++) {
       let element = new MenuElement(
@@ -31,89 +50,32 @@ export class SidemenuComponent implements OnInit {
       //Add to allWidgets
       this.allWidgets.push(element);
     }
-
-    //Convert all widgets to MenuElements from User Configuratin
-    for (var index = 0; index < this.userService.user.configuration.dashboards.length; index++) {
-      let id = this.userService.user.configuration.dashboards[index].id;
-      let name = this.userService.user.configuration.dashboards[index].name;
-      let element = new MenuElement(id, true, true, name);
-      this.dashboards.push(element);
-    }
   }
 
-  changedashBoard(dashboardId: number) {
-
+  listAllDashboards() {
+    this.dashboardcontroller.getDashboards().forEach(dashboard => {
+      let menuElement = new MenuElement(
+        dashboard.id, false, false, dashboard.name
+      );
+      this.dashboards.push(menuElement);
+    });
   }
 
-  newDashboard() {
-    //TO DO
-  }
-
-  removeDashboard(dashboard) {
-    //Check if dashboard exists
-    if (this.dashboards.includes(dashboard)) {
-      //Remove it
-      for (var index = 0; index < this.dashboards.length; index++) {
-        if (this.dashboards[index] == dashboard) {
-          this.dashboards.splice(index, 1);
-          break; // found, stop loop
-        }
+  setActiveDashboard() {
+    this.dashboards.forEach(id => {
+      if (id.id == this.dashboardcontroller.getActiveDashboard().id) {
+        id.active = true;
       }
-    }
-    //TO DO: Save to user configuration
+    });
   }
 
-  //Adds widget to active list
-  addWidget(widget: MenuElement) {
-    //Check if its already on the list - disallow adding it more times
-    if (!this.activeWidgets.includes(widget)) {
-      //put it on activelist if it doesnt
-      this.activeWidgets.push(widget);
-      this.widgetService.spawnWidget(widget.widgetId);
-      //Set widget on widget list to active
-      for (var index = 0; index < this.allWidgets.length; index++) {
-        if (this.allWidgets[index] == widget) {
-          this.allWidgets[index].active = true;
-        }
-      }
-    }
-    //TO DO: Save to user configuration
-  }
-
-  removeWidget(widget: MenuElement) {
-    //Check if widget exists
-    if (this.activeWidgets.includes(widget)) {
-      //Remove it
-      for (var index = 0; index < this.activeWidgets.length; index++) {
-        if (this.activeWidgets[index] == widget) {
-          this.widgetService.removeWidget(widget.widgetId);
-          this.activeWidgets.splice(index, 1);
-          //Remove active
-          for (var index = 0; index < this.allWidgets.length; index++) {
-            if (this.allWidgets[index] == widget) {
-              this.allWidgets[index].active = false;
-            }
-          }
-          break; // found, stop loop
-        }
-      }
-    }
-    //TO DO: Save to user configuration
-  }
-}
-
-class MenuElement {
-  widgetId: number;
-  removeable: boolean;
-  active: boolean
-  titel: string;
-
-  constructor(widgetId: number, removeable: boolean, active: boolean, titel: string) {
-    //Init properties
-    this.widgetId = widgetId;
-    this.removeable = removeable;
-    this.active = active;
-    this.titel = titel;
+  setActiveWidgets(){
+    this.dashboardcontroller.getActiveDashboard().widgets.forEach(widgetId =>{
+      let widget = this.widgetService.getWidget(widgetId);
+      let menuElement = new MenuElement(
+        widget.id, true, true, widget.title);
+        this.activeWidgets.push(menuElement);
+    })
   }
 }
 
