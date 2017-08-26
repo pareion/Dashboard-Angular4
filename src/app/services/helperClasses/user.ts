@@ -12,7 +12,6 @@ export class User {
       firstname: string, lastname: string,
       department: string, occupation: string,
       configuration: Configuration = null) {
-        console.log("user constructor")
 
       this.first_name = firstname; this.last_name = lastname;
       this.department = department; this.occupation = occupation;

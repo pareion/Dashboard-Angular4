@@ -19,7 +19,14 @@ export class UserService {
     //Store in user variable
 
     //Test - Last parameter is null, so a configuration will be generated
-    this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant");
+    let d = new Dashboard(1, "Standard2Col", DashboardType.Standard2Col, [1,2]);
+    //let d2 = new Dashboard(2, "Content2col", DashboardType.TopWidgets2Col, [2,1]);
+    let das = [];
+    das.push(d);
+    //das.push(d2);
+    let config = new Configuration(das);
+    console.log(config.dashboards.length);
+    this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant", config);
   }
 
   public removeDashboard(dashboardId: number) {

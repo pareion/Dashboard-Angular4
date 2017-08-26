@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from "../user-service/user.service";
-import { Dashboard } from "../helperClasses/dashboard";
+import { Dashboard, DashboardType } from "../helperClasses/dashboard";
 
 @Injectable()
 export class DashboardcontrollerService {
@@ -35,7 +35,6 @@ export class DashboardcontrollerService {
         this.activeDashboard = this.dashboards[0];
       }
     }
-
   }
 
   //Fire event to subscribers
@@ -50,12 +49,22 @@ export class DashboardcontrollerService {
 
   //Fire event to subscribers
   public addWidget(widgetId: number) {
+    //If no active dashboard
+    if(!this.activeDashboard){
+      return;
+    }
+
     this.userService.addWidget(widgetId, this.activeDashboard.id);
     this.addWidgetEvent(widgetId);
   }
 
   //Fire event to subscribers
   public removeWidget(widgetId: number) {
+    //If no active dashboard
+    if(!this.activeDashboard){
+      return;
+    }
+
     this.userService.removeWidget(widgetId, this.activeDashboard.id);
     this.removeWidgetEvent(widgetId);
   }
@@ -66,6 +75,10 @@ export class DashboardcontrollerService {
     if (this.activeDashboard.id == dashboardId) {
       this.getDashboardConfiguration();
     }
+  }
+
+  public addDashboard(dashboard: Dashboard){
+    this.userService.saveDashboard(dashboard);
   }
 
   public getDashboards(): Dashboard[] {

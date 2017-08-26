@@ -1,12 +1,10 @@
 import { Dashboard } from "./dashboard";
 
-{ Dashboard }
-
 export class Configuration {
     dashboards: Dashboard[];
   
     constructor(dashboards: Dashboard[] = null) {
-      if(this.dashboards == null){
+      if(dashboards == null){
         this.dashboards = [];
       }
       else{

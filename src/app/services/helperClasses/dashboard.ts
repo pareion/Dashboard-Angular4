@@ -8,7 +8,7 @@ export class Dashboard {
     this.id = id;
     this.name = name;
     this.type = type;
-    if (this.widgets == null) {
+    if (widgets == null) {
       this.widgets = [];
     }
     else {

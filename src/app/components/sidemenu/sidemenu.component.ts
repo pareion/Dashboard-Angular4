@@ -75,19 +75,23 @@ export class SidemenuComponent {
 
   setActiveWidgets() {
     //Sets the active widgets on current dashboard to active
-    this.dashboardcontroller.getActiveDashboard().widgets.forEach(widgetId => {
-      let widget = this.widgetService.getWidgetbyId(widgetId);
-      let menuElement = new MenuElement(
-        widget.id, true, true, widget.title);
-      this.activeWidgets.push(menuElement);
-    })
+    let activeDashboard = this.dashboardcontroller.getActiveDashboard();
+    console.log("sidemenu");
+    if (activeDashboard) {
+      activeDashboard.widgets.forEach(widgetId => {
+        let widget = this.widgetService.getWidgetbyId(widgetId);
+        let menuElement = new MenuElement(
+          widget.id, true, true, widget.title);
+        this.activeWidgets.push(menuElement);
+      })
+    }
   }
 
-  setActiveAllWidgets(){ //Eyes :)
+  setActiveAllWidgets() { //Eyes :)
     for (var index = 0; index < this.allWidgets.length; index++) {
-      if(this.activeWidgets.find(w => w.id == this.allWidgets[index].id)){
-      this.allWidgets[index].active = true;
-      } 
+      if (this.activeWidgets.find(w => w.id == this.allWidgets[index].id)) {
+        this.allWidgets[index].active = true;
+      }
     }
   }
 
@@ -99,6 +103,11 @@ export class SidemenuComponent {
 
   //Adds widget to active list
   addWidget(widget: MenuElement) {
+    //If no active dashboard
+    if(!this.dashboardcontroller.getActiveDashboard()){
+      return;
+    }
+
     //Check if its already on the list - disallow adding it more times
     if (!this.activeWidgets.find(w => w.id == widget.id)) {
       //put it on activelist if it doesnt
@@ -107,14 +116,19 @@ export class SidemenuComponent {
     }
   }
 
-  removeWidget(widget: MenuElement){
+  removeWidget(widget: MenuElement) {
+    //If no active dashboard
+    if(!this.dashboardcontroller.getActiveDashboard()){
+      return;
+    }
+
     //Check if widget exists
-    if(this.activeWidgets.find(w => w.id == widget.id)){
+    if (this.activeWidgets.find(w => w.id == widget.id)) {
       //remove it
       this.dashboardcontroller.removeWidget(widget.id);
       this.setup();
     }
-  }  
+  }
 }
 
 

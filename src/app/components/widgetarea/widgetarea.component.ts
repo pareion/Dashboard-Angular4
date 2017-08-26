@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, ViewChild, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { WidgetItem } from './../../services/widgetlibrary-service/widget-item';
 import { WidgetComponent } from './../../services/widgetLibrary-service/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
@@ -11,7 +11,7 @@ import { DashboardType } from "../../services/helperClasses/dashboard";
   templateUrl: './widgetarea.component.html',
   styleUrls: ['./widgetarea.component.css']
 })
-export class WidgetareaComponent {
+export class WidgetareaComponent implements OnInit {
   @ViewChild(WidgetHostDirective) widgetHost: WidgetHostDirective;
 
   activeWidgets: number[]; //ids of widget in order
@@ -22,16 +22,36 @@ export class WidgetareaComponent {
     private widgetService: WidgetLibraryService,
     private dashboardController: DashboardcontrollerService,
     private componentFactoryResolver: ComponentFactoryResolver) {
-
-    this.setContentVariables(this.dashboardController.getActiveDashboard().type);
+    
+    //Set type of dashboard
+    let activeDashboard = this.dashboardController.getActiveDashboard();
+    if(activeDashboard){
+      this.setContentVariables(this.dashboardController.getActiveDashboard().type);
+    }
+    
     this.dashboardController.addWidgetEvent = (widgetId: number) => this.addWidget(widgetId);
     this.dashboardController.removeWidgetEvent = (widgetId: number) => this.removeWidget(widgetId);
     this.dashboardController.changeDashboardEvent = () => this.changeDashboard();
     this.activeWidgets = [];
   }
 
+  ngOnInit(){
+    //If  active dashboard
+    if(this.dashboardController.getActiveDashboard()){
+      //spawn in all widgets from config
+      this.dashboardController.getActiveDashboard().widgets.forEach(widgetId => {
+        this.addWidget(widgetId);
+      });
+    }
+  }
+
 
   private addWidget(widgetId: number) {
+    //If no active dashboard
+    if(!this.dashboardController.getActiveDashboard()){
+      return;
+    }
+
     //Get Widget
     let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
 
@@ -49,6 +69,11 @@ export class WidgetareaComponent {
   }
 
   private removeWidget(widgetId: number) {
+    //If no active dashboard
+    if(!this.dashboardController.getActiveDashboard()){
+      return;
+    }
+
     //Resolve the component.
     let viewContainerRef = this.widgetHost.viewContainerRef;
 
