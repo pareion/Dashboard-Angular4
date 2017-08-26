@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Configuration } from "../helperClasses/configuration";
+import { Dashboard, DashboardType } from "../helperClasses/dashboard";
 
 @Injectable()
 export class UserService {
@@ -64,43 +66,4 @@ export class User {
       this.configuration.dashboards.push(new Dashboard(1, "Nyt dashboard", DashboardType.Standard1Col));
     }
   }
-}
-
-export class Configuration {
-  dashboards: Dashboard[];
-
-  constructor(dashboards: Dashboard[] = null) {
-    if(this.dashboards == null){
-      this.dashboards = [];
-    }
-    else{
-      this.dashboards = dashboards;
-    }   
-  }
-}
-
-export class Dashboard {
-  public id: number;
-  name: string;
-  type: DashboardType;
-  widgets: number[]; //IDs of widgets in order
-
-  constructor(id: number, name: string, type: DashboardType, widgets: number[] = null) {
-    this.id = id;
-    this.name = name;
-    this.type = type;
-    if (this.widgets == null) {
-      this.widgets = [];
-    }
-    else {
-      this.widgets = widgets;
-    }
-  }
-}
-
-export enum DashboardType {
-  Standard1Col = 1,
-  Standard2Col = 2,
-  TopWidgets2Col = 3,
-  TopWidgets1Col = 4
 }

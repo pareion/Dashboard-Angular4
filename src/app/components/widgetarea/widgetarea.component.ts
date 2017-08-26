@@ -1,11 +1,10 @@
-import { DashboardComponent } from './../dashboard/dashboard.component';
-import { Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { WidgetItem } from './../../services/widgetlibrary-service/widget-item';
 import { WidgetComponent } from './../../services/widgetLibrary-service/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
-import { DashboardType } from "../../services/user-service/user.service";
+import { DashboardType } from "../../services/helperClasses/dashboard";
 
 @Component({
   selector: 'app-widgetarea',
@@ -32,17 +31,48 @@ export class WidgetareaComponent {
   }
 
   private addWidget(widgetId: number) {
+    //Get Widget
+    let widget: WidgetItem = this.widgetService.getWidget(widgetId);
+    
+    //Resolve component
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
+    let viewContainerRef = this.widgetHost.viewContainerRef;
 
+    //Create component into DOM and set values.
+    let componentRef = viewContainerRef.createComponent(componentFactory);
+    (<WidgetComponent>componentRef.instance).id = widget.id;
+    (<WidgetComponent>componentRef.instance).title = widget.title;
+
+    //Add to active Widgets list
+    this.activeWidgets.push(widget.id);
   }
 
   private removeWidget(widgetId: number){
+    //Get Widget
+    let widget: WidgetItem = this.widgetService.getWidget(widgetId);
 
+    //Resolve the component.
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
+    let viewContainerRef = this.widgetHost.viewContainerRef;
+
+    //Find Widget index on active list
+    let activeWidgetIndex: number;
+    for (var index = 0; index < this.activeWidgets.length; index++) {
+      if (this.activeWidgets[index] == widget.id) {
+        activeWidgetIndex = index;
+      }
+    }
+    //Remove it from the widgetarea by index.
+    viewContainerRef.remove(activeWidgetIndex)
   }
 
   private changeDashboard(dashboardId: number){
     this.clearArea();
-    this.activeWidgets = this.dashboardController.getActiveDashboard().widgets;
     this.setContentVariables(this.dashboardController.getActiveDashboard().type);
+    this.activeWidgets = this.dashboardController.getActiveDashboard().widgets;
+    this.activeWidgets.forEach(widgetId => {
+      this.addWidget(widgetId);
+    });
   }
 
   private clearArea(){

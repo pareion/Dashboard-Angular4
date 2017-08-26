@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UserService, Dashboard } from "../user-service/user.service";
+import { UserService} from "../user-service/user.service";
+import { Dashboard } from "../helperClasses/dashboard";
 
 @Injectable()
 export class DashboardcontrollerService {
