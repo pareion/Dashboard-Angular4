@@ -62,21 +62,12 @@ export class UserService implements OnInit {
     //Call api to remove
 
     //Add to local data
-    let found = false;
-    for (var index = 0; index < this.user.configuration.dashboards.length; index++) {
-      //if done, end.
-      if (found) {
-        break;
-      }
-      //Find dashboard
-      if (this.user.configuration.dashboards[index].id == dashboardId) {
-        //find widget
-        for (var index2 = 0; index2 < this.user.configuration.dashboards[index2].widgets.length; index2++) {
-          if (this.user.configuration.dashboards[index].widgets[index2] == widgetId) {
-            this.user.configuration.dashboards[index].widgets.splice(index2, 1);
-            found = true;
-          }
-        }
+    let d = this.user.configuration.dashboards.find(d_id => d_id.id == dashboardId);
+    if(d != undefined){
+      for (var index = 0; index < d.widgets.length; index++) {
+        if(d.widgets[index] == widgetId){
+          d.widgets.splice(index, 1);
+        }     
       }
     }
   }
