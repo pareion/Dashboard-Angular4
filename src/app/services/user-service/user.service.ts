@@ -20,12 +20,11 @@ export class UserService {
 
     //Test - Last parameter is null, so a configuration will be generated
     let d = new Dashboard(1, "Standard2Col", DashboardType.Standard2Col, [1,2]);
-    //let d2 = new Dashboard(2, "Content2col", DashboardType.TopWidgets2Col, [2,1]);
+    let d2 = new Dashboard(2, "Content2col", DashboardType.TopWidgets2Col, [2,1]);
     let das = [];
     das.push(d);
-    //das.push(d2);
+    das.push(d2);
     let config = new Configuration(das);
-    console.log(config.dashboards.length);
     this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant", config);
   }
 
@@ -53,19 +52,14 @@ export class UserService {
     //Call api to add
 
     //Add to local data
-    for (var index = 0; index < this.user.configuration.dashboards.length; index++) {
-      if (this.user.configuration.dashboards[index].id == dashboardId) {
-        this.user.configuration.dashboards[index].widgets.push(widgetId);
-        break;
-      }
-    }
+    this.user.configuration.dashboards.find(d => d.id == dashboardId).widgets.push(widgetId);
   }
 
   public removeWidget(widgetId: number, dashboardId: number) {
     //Call api to remove
 
     //Add to local data
-    let d = this.user.configuration.dashboards.find(d_id => d_id.id == dashboardId);
+    let d = this.user.configuration.dashboards.find(d => d.id == dashboardId);
     if(d != undefined){
       for (var index = 0; index < d.widgets.length; index++) {
         if(d.widgets[index] == widgetId){

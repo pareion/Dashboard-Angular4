@@ -45,7 +45,6 @@ export class WidgetareaComponent implements OnInit {
     }
   }
 
-
   private addWidget(widgetId: number) {
     //If no active dashboard
     if(!this.dashboardController.getActiveDashboard()){

@@ -34,10 +34,6 @@ export class WidgetLibraryService {
   }
 
   public getWidgetbyId(widgetId: number): WidgetItem {
-    for (var index = 0; index < this.widgets.length; index++) {
-      if(this.widgets[index].id == widgetId){
-        return this.widgets[index];
-      }     
-    }
+    return this.widgets.find(w => w.id == widgetId);
   }
 }

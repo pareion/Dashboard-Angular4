@@ -17,7 +17,6 @@ export class DashboardcontrollerService {
 
   constructor(private userService: UserService) {
     this.dashboards = [];
-
     //Setup
     this.getDashboardConfiguration();
   }
@@ -39,11 +38,8 @@ export class DashboardcontrollerService {
 
   //Fire event to subscribers
   public changeDashboard(dashboardId: number) {
-    this.dashboards.forEach(dboard => {
-      if (dboard.id == dashboardId) {
-        this.activeDashboard = dboard;
-      }
-    });
+    this.activeDashboard = undefined;
+    this.activeDashboard = this.dashboards.find(d => d.id == dashboardId);
     this.changeDashboardEvent();
   }
 
@@ -53,7 +49,6 @@ export class DashboardcontrollerService {
     if(!this.activeDashboard){
       return;
     }
-
     this.userService.addWidget(widgetId, this.activeDashboard.id);
     this.addWidgetEvent(widgetId);
   }

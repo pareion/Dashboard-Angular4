@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
 import { MenuElement } from "../../services/helperClasses/MenuElement";
+import { Dashboard } from "../../services/helperClasses/dashboard";
 
 @Component({
   selector: 'app-sidemenu',
@@ -11,7 +12,7 @@ import { MenuElement } from "../../services/helperClasses/MenuElement";
 
 export class SidemenuComponent {
   dashboards: MenuElement[];
-  activeDashboard: number;
+  activeDashboard: number; //Id
   activeWidgets: MenuElement[];
   allWidgets: MenuElement[];
 
@@ -23,14 +24,17 @@ export class SidemenuComponent {
     this.activeWidgets = [];
     this.allWidgets = [];
 
+    console.log("Sidemenu constructor calling")
     this.setup();
   }
 
   setup() {
+    let activeDashboard = this.dashboardcontroller.getActiveDashboard();
+
     this.clearMenu();
     this.listAllDashboards();
     this.listAllWidgets();
-    this.setActiveDashboard();
+    this.setActiveDashboard(activeDashboard);
     this.setActiveWidgets();
     this.setActiveAllWidgets();
   }
@@ -63,7 +67,7 @@ export class SidemenuComponent {
     });
   }
 
-  setActiveDashboard() {
+  setActiveDashboard(activeDashboard: Dashboard) {
     //Sets the active dashboard from controller to active on sidemenu
     this.dashboards.forEach(id => {
       if (id.id == this.dashboardcontroller.getActiveDashboard().id) {
@@ -75,10 +79,9 @@ export class SidemenuComponent {
 
   setActiveWidgets() {
     //Sets the active widgets on current dashboard to active
-    let activeDashboard = this.dashboardcontroller.getActiveDashboard();
-    console.log("sidemenu");
-    if (activeDashboard) {
-      activeDashboard.widgets.forEach(widgetId => {
+    let widgets = this.dashboardcontroller.getActiveDashboard().widgets;
+    if (widgets) {
+      widgets.forEach(widgetId => {
         let widget = this.widgetService.getWidgetbyId(widgetId);
         let menuElement = new MenuElement(
           widget.id, true, true, widget.title);
@@ -95,16 +98,30 @@ export class SidemenuComponent {
     }
   }
 
-  removeDashboard(dashboardId: number) {
-    this.dashboardcontroller.removeDashboard(dashboardId);
+  changeDashboard(dashboardElement: MenuElement) {
+    //Switch dashboard only if the active is not already active
+    if (this.dashboardcontroller.getActiveDashboard().id != dashboardElement.id) {
+      //Set the current dashboard to not active
+      this.dashboards.find(d => d.id == this.activeDashboard).active = false;
+      this.dashboardcontroller.changeDashboard(dashboardElement.id);
+      //Clear the whole sidemenu and load in again.
+      this.setup();
+    }
+  }
+
+  //To Do - fix
+  removeDashboard(dashboardElement: MenuElement) {
+    this.changeDashboard(new MenuElement(2, false, false, ''));  ////TEST - delete
+
+    //this.dashboardcontroller.removeDashboard(dashboardElement.id); <-- uncomment
     //Clear the whole sidemenu and load in again.
-    this.setup();
+    //this.setup();
   }
 
   //Adds widget to active list
   addWidget(widget: MenuElement) {
     //If no active dashboard
-    if(!this.dashboardcontroller.getActiveDashboard()){
+    if (!this.dashboardcontroller.getActiveDashboard()) {
       return;
     }
 
@@ -118,7 +135,7 @@ export class SidemenuComponent {
 
   removeWidget(widget: MenuElement) {
     //If no active dashboard
-    if(!this.dashboardcontroller.getActiveDashboard()){
+    if (!this.dashboardcontroller.getActiveDashboard()) {
       return;
     }
 
