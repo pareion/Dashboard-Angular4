@@ -24,6 +24,23 @@ export class UserService {
       }   
     }
   }
+
+  //TODO
+  removeDashboard(dashboardId: number){
+
+  }
+
+  saveDashboard(){
+
+  }
+
+  addWidget(id: number, id2: number){
+
+  }
+
+  removeWidget(id: number, id2: number){
+
+  }
 }
 
 export class User {

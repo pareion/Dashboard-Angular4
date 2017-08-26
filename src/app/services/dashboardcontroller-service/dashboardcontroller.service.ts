@@ -3,67 +3,67 @@ import { UserService, Dashboard } from "../user-service/user.service";
 
 @Injectable()
 export class DashboardcontrollerService {
-  
-  public addWidgetEvent: { (widgetId: number): void; }; //events
+
+  //Events for sidemenu component to call
+  //Subscriber is widgetarea which will handle the event
+  public addWidgetEvent: { (widgetId: number): void; };
   public removeWidgetEvent: { (widgetId: number): void; };
   public changeDashboardEvent: {( dashboardId: number): void; };
 
+  //Private fiels to keep track of data
   private dashboards: Dashboard[];
   private activeDashboard: Dashboard;
-
 
   constructor(private userService: UserService) { 
     this.dashboards = [];
     //Setup
     this.getDashboardConfiguration();
-    //start with the 1st one as active dashboard
-    this.activeDashboard = this.dashboards[0];
   }
   
   //loads in the dashboard configuration from user service
   private getDashboardConfiguration(){
     this.dashboards = this.userService.user.configuration.dashboards;
+    //start with the 1st one as active dashboard if there is any
+    if(this.dashboards.length == 0){
+      this.activeDashboard = undefined;
+    } else{
+      this.activeDashboard = this.dashboards[0];
+    }
   }
 
   //Fire event to subscribers
-  changeDashboard(dashboardId: number){
+  public changeDashboard(dashboardId: number){
     this.dashboards.forEach(dboard => {
       if(dboard.id == dashboardId){
         this.activeDashboard = dboard;
       }
     });
     this.changeDashboardEvent(dashboardId);
-
   }
 
   //Fire event to subscribers
-  addWidget(widgetId: number){
+  public addWidget(widgetId: number){
+    this.userService.addWidget(widgetId, this.activeDashboard.id);
     this.addWidgetEvent(widgetId);
   }
 
   //Fire event to subscribers
-  removeWidget(widgetId: number){
+  public removeWidget(widgetId: number){
+    this.userService.removeWidget(widgetId, this.activeDashboard.id);
     this.removeWidgetEvent(widgetId);
   }
 
-  getDashboards (): Dashboard[]{
+  public removeDashboard(dashboardId: number){
+    this.userService.removeDashboard(dashboardId);
+    //Update
+    this.getDashboardConfiguration();
+  }
+
+  public getDashboards (): Dashboard[]{
     return this.dashboards;
   }
 
-  getActiveDashboard(): Dashboard{
+  public getActiveDashboard(): Dashboard{
     return this.activeDashboard;
   }
-
-  //Get widgetsIds for specific dashboard
-  getWidgets(dashboardId: number){
-    this.dashboards.forEach(dashboard => {
-      if(dashboard.id == dashboardId){
-        return dashboard.widgets;
-      }
-    });   
-  }
-
 }
-
-// Har alle dashboards som objekter
-// Har har liste med aktive widgets på hvert dashboard

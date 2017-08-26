@@ -39,7 +39,7 @@ export class WidgetLibraryService {
     });
   }
 
-  getWidget(widgetId: number){
+  public getWidget(widgetId: number){
     for (var index = 0; index < this.widgets.length; index++) {
       if(this.widgets[index].id == widgetId){
         return this.widgets[index];

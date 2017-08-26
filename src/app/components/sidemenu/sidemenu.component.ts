@@ -11,6 +11,7 @@ import { MenuElement } from "../../services/helperClasses/MenuElement";
 
 export class SidemenuComponent{
   dashboards: MenuElement[];
+  activeDashboard: number;
   activeWidgets: MenuElement[];
   allWidgets: MenuElement[];
 
@@ -53,29 +54,39 @@ export class SidemenuComponent{
   }
 
   listAllDashboards() {
+    //Convert all dashboards from controller to MenuElements
     this.dashboardcontroller.getDashboards().forEach(dashboard => {
       let menuElement = new MenuElement(
-        dashboard.id, false, false, dashboard.name
+        dashboard.id, true, false, dashboard.name
       );
       this.dashboards.push(menuElement);
     });
   }
 
   setActiveDashboard() {
+    //Sets the active dashboard from controller to active on sidemenu
     this.dashboards.forEach(id => {
       if (id.id == this.dashboardcontroller.getActiveDashboard().id) {
         id.active = true;
+        this.activeDashboard = id.id;
       }
     });
   }
 
   setActiveWidgets(){
+    //Sets the active widgets on current dashboard to active
     this.dashboardcontroller.getActiveDashboard().widgets.forEach(widgetId =>{
       let widget = this.widgetService.getWidget(widgetId);
       let menuElement = new MenuElement(
         widget.id, true, true, widget.title);
         this.activeWidgets.push(menuElement);
     })
+  }
+
+  removeDashboard(dashboardId: number){
+    this.dashboardcontroller.removeDashboard(dashboardId);
+    //Clear the whole sidemenu and load in again.
+    this.setup();
   }
 }
 
