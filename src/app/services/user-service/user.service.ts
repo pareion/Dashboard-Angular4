@@ -1,20 +1,16 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from "../helperClasses/user";
 import { Configuration } from "../helperClasses/configuration";
 import { Dashboard, DashboardType } from "../helperClasses/dashboard";
 
 @Injectable()
-export class UserService implements OnInit {
+export class UserService {
   user: User;
 
   constructor() {
     //No login implemented yet.
     //Test login. Remove this when login is implemented.
     this.getUserData();
-  }
-
-  ngOnInit() {
-
   }
 
   public getUserData() {
