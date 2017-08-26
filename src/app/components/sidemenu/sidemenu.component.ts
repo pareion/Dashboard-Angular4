@@ -83,18 +83,6 @@ export class SidemenuComponent {
     })
   }
 
-  test(){
-    console.log("-------------------------------")
-    for (var index = 0; index < this.activeWidgets.length; index++) {
-      console.log(this.activeWidgets[index].id + ": " + this.activeWidgets[index].titel)
-    }
-  }
-
-  test2(id){
-    console.log("------------------")
-    console.log(id)
-  }
-
   setActiveAllWidgets(){ //Eyes :)
     for (var index = 0; index < this.allWidgets.length; index++) {
       if(this.activeWidgets.find(w => w.id == this.allWidgets[index].id)){
@@ -123,7 +111,6 @@ export class SidemenuComponent {
     //Check if widget exists
     if(this.activeWidgets.find(w => w.id == widget.id)){
       //remove it
-      this.test2(widget.id)
       this.dashboardcontroller.removeWidget(widget.id);
       this.setup();
     }
