@@ -13,27 +13,28 @@ import { DashboardType } from "../../services/helperClasses/dashboard";
 })
 export class WidgetareaComponent {
   @ViewChild(WidgetHostDirective) widgetHost: WidgetHostDirective;
-  
+
   activeWidgets: number[]; //ids of widget in order
   contentHeader: boolean;
-  numCols: number; //N
-
+  numCols: number; //To do. Not implemented in html
 
   constructor(
     private widgetService: WidgetLibraryService,
     private dashboardController: DashboardcontrollerService,
     private componentFactoryResolver: ComponentFactoryResolver) {
 
+    this.setContentVariables(this.dashboardController.getActiveDashboard().type);
     this.dashboardController.addWidgetEvent = (widgetId: number) => this.addWidget(widgetId);
     this.dashboardController.removeWidgetEvent = (widgetId: number) => this.removeWidget(widgetId);
-    this.dashboardController.changeDashboardEvent = (dashboardId: number) => this.changeDashboard(dashboardId);
+    this.dashboardController.changeDashboardEvent = () => this.changeDashboard();
     this.activeWidgets = [];
   }
+
 
   private addWidget(widgetId: number) {
     //Get Widget
     let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
-    
+
     //Resolve component
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
     let viewContainerRef = this.widgetHost.viewContainerRef;
@@ -47,18 +48,14 @@ export class WidgetareaComponent {
     this.activeWidgets.push(widget.id);
   }
 
-  private removeWidget(widgetId: number){
-    //Get Widget
-    let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
-
+  private removeWidget(widgetId: number) {
     //Resolve the component.
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
     let viewContainerRef = this.widgetHost.viewContainerRef;
 
     //Find Widget index on active list
     let activeWidgetIndex: number;
     for (var index = 0; index < this.activeWidgets.length; index++) {
-      if (this.activeWidgets[index] == widget.id) {
+      if (this.activeWidgets[index] == widgetId) {
         activeWidgetIndex = index;
       }
     }
@@ -66,7 +63,7 @@ export class WidgetareaComponent {
     viewContainerRef.remove(activeWidgetIndex)
   }
 
-  private changeDashboard(dashboardId: number){
+  private changeDashboard() {
     this.clearArea();
     this.setContentVariables(this.dashboardController.getActiveDashboard().type);
     this.activeWidgets = this.dashboardController.getActiveDashboard().widgets;
@@ -75,7 +72,7 @@ export class WidgetareaComponent {
     });
   }
 
-  private clearArea(){
+  private clearArea() {
     let viewContainerRef = this.widgetHost.viewContainerRef;
     let componentRef = viewContainerRef.clear();
   }

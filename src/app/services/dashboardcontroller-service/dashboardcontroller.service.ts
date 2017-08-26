@@ -20,7 +20,6 @@ export class DashboardcontrollerService {
     
     //Setup
     this.getDashboardConfiguration();
-    //this.changeDashboardEvent(this.dashboards[0].id);
   }
   
   //loads in the dashboard configuration from user service

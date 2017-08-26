@@ -1,63 +1,60 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section *ngIf="contentHeader; then trash else notrash" class="content-header">
-    <ng-template #nocontentheader></ng-template>
-    <ng-template #contentheader>
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Stationer Online</span>
-              <span class="info-box-number">56</span>
-            </div>
-            <!-- /.info-box-content -->
+  <section *ngIf=contentHeader class="content-header">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Stationer Online</span>
+            <span class="info-box-number">56</span>
           </div>
-          <!-- /.info-box -->
+          <!-- /.info-box-content -->
         </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="fa fa-exclamation-triangle"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Vejarbejde</span>
-              <span class="info-box-number">2</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-car"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Trafiksituation</span>
-              <span class="info-box-number">Tæt trafik</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-heartbeat"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Antal dage uden uheld</span>
-              <span class="info-box-number">120</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
+        <!-- /.info-box -->
       </div>
-      <!-- /.row -->
-    </ng-template>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="fa fa-exclamation-triangle"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Vejarbejde</span>
+            <span class="info-box-number">2</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-car"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Trafiksituation</span>
+            <span class="info-box-number">Tæt trafik</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-red"><i class="fa fa-heartbeat"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Antal dage uden uheld</span>
+            <span class="info-box-number">120</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
   </section>
 
   <!-- Main content -->
