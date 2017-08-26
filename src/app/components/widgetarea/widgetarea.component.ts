@@ -60,7 +60,8 @@ export class WidgetareaComponent {
       }
     }
     //Remove it from the widgetarea by index.
-    viewContainerRef.remove(activeWidgetIndex)
+    this.activeWidgets.splice(activeWidgetIndex, 1);
+    viewContainerRef.remove(activeWidgetIndex);
   }
 
   private changeDashboard() {

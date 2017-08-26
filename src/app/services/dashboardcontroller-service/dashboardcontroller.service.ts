@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserService} from "../user-service/user.service";
+import { UserService } from "../user-service/user.service";
 import { Dashboard } from "../helperClasses/dashboard";
 
 @Injectable()
@@ -9,63 +9,70 @@ export class DashboardcontrollerService {
   //Subscriber is widgetarea which will handle the event
   public addWidgetEvent: { (widgetId: number): void; };
   public removeWidgetEvent: { (widgetId: number): void; };
-  public changeDashboardEvent: { ( dashboardId: number): void; };
+  public changeDashboardEvent: { (): void; };
 
   //Private fiels to keep track of data
   private dashboards: Dashboard[];
   private activeDashboard: Dashboard;
 
-  constructor(private userService: UserService) { 
-    this.dashboards = [];  
-    
+  constructor(private userService: UserService) {
+    this.dashboards = [];
+
     //Setup
     this.getDashboardConfiguration();
   }
-  
+
   //loads in the dashboard configuration from user service
-  private getDashboardConfiguration(){
+  private getDashboardConfiguration() {
     this.dashboards = this.userService.user.configuration.dashboards;
-    //start with the 1st one as active dashboard if there is any
-    if(this.dashboards.length == 0){
-      this.activeDashboard = undefined;
-    } else{
-      this.activeDashboard = this.dashboards[0];
+
+    //First load
+    if (this.activeDashboard == undefined) {
+      //start with the 1st one as active dashboard if there is any
+      if (this.dashboards.length == 0) {
+        this.activeDashboard = undefined;
+      } else {
+        this.activeDashboard = this.dashboards[0];
+      }
     }
+
   }
 
   //Fire event to subscribers
-  public changeDashboard(dashboardId: number){
+  public changeDashboard(dashboardId: number) {
     this.dashboards.forEach(dboard => {
-      if(dboard.id == dashboardId){
+      if (dboard.id == dashboardId) {
         this.activeDashboard = dboard;
       }
     });
-    this.changeDashboardEvent(dashboardId);
+    this.changeDashboardEvent();
   }
 
   //Fire event to subscribers
-  public addWidget(widgetId: number){
+  public addWidget(widgetId: number) {
     this.userService.addWidget(widgetId, this.activeDashboard.id);
     this.addWidgetEvent(widgetId);
   }
 
   //Fire event to subscribers
-  public removeWidget(widgetId: number){
+  public removeWidget(widgetId: number) {
     this.userService.removeWidget(widgetId, this.activeDashboard.id);
     this.removeWidgetEvent(widgetId);
   }
 
-  public removeDashboard(dashboardId: number){
+  public removeDashboard(dashboardId: number) {
     this.userService.removeDashboard(dashboardId);
     //Update
-    this.getDashboardConfiguration();
+    if (this.activeDashboard.id == dashboardId) {
+      this.getDashboardConfiguration();
+    }
   }
 
-  public getDashboards (): Dashboard[]{
+  public getDashboards(): Dashboard[] {
     return this.dashboards;
   }
 
-  public getActiveDashboard(): Dashboard{
+  public getActiveDashboard(): Dashboard {
     return this.activeDashboard;
   }
 }
