@@ -78,9 +78,11 @@ export class WidgetareaComponent implements OnInit {
 
     //Find Widget index on active list
     let activeWidgetIndex: number;
+    
     for (var index = 0; index < this.activeWidgets.length; index++) {
       if (this.activeWidgets[index] == widgetId) {
         activeWidgetIndex = index;
+        break;
       }
     }
     //Remove it from the widgetarea by index.
