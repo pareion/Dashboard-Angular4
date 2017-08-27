@@ -72,6 +72,11 @@ export class DashboardcontrollerService {
 
   public addDashboard(dashboard: Dashboard) {
     this.userService.saveDashboard(dashboard);
+
+    if(this.activeDashboard == undefined){
+      this.activeDashboard = this.dashboards[0];
+      this.changeDashboardEvent();
+    }
   }
 
   public getDashboards(): Dashboard[] {
