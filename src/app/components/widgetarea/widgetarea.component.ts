@@ -103,6 +103,8 @@ export class WidgetareaComponent implements OnInit {
   }
 
   private clearArea() {
+    this.contentHeader = false;
+    this.numCols = 0;
     let viewContainerRef = this.widgetHost.viewContainerRef;
     let componentRef = viewContainerRef.clear();
   }
