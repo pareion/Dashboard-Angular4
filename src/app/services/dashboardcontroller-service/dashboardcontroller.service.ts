@@ -23,7 +23,7 @@ export class DashboardcontrollerService {
 
   //loads in the dashboard configuration from user service
   private getDashboardConfiguration() {
-    this.dashboards = this.userService.user.configuration.dashboards;
+    this.dashboards = this.userService.getUserData().configuration.dashboards;
 
     //First load
     if (this.activeDashboard == undefined) {
@@ -38,7 +38,7 @@ export class DashboardcontrollerService {
 
   //Fire event to subscribers
   public changeDashboard(dashboardId: number) {
-    this.activeDashboard = undefined;
+    this.getDashboardConfiguration();
     this.activeDashboard = this.dashboards.find(d => d.id == dashboardId);
     this.changeDashboardEvent();
   }
@@ -46,7 +46,7 @@ export class DashboardcontrollerService {
   //Fire event to subscribers
   public addWidget(widgetId: number) {
     //If no active dashboard
-    if(!this.activeDashboard){
+    if (!this.activeDashboard) {
       return;
     }
     this.userService.addWidget(widgetId, this.activeDashboard.id);
@@ -56,10 +56,9 @@ export class DashboardcontrollerService {
   //Fire event to subscribers
   public removeWidget(widgetId: number) {
     //If no active dashboard
-    if(!this.activeDashboard){
+    if (!this.activeDashboard) {
       return;
     }
-
     this.userService.removeWidget(widgetId, this.activeDashboard.id);
     this.removeWidgetEvent(widgetId);
   }
@@ -72,7 +71,7 @@ export class DashboardcontrollerService {
     }
   }
 
-  public addDashboard(dashboard: Dashboard){
+  public addDashboard(dashboard: Dashboard) {
     this.userService.saveDashboard(dashboard);
   }
 
@@ -81,6 +80,11 @@ export class DashboardcontrollerService {
   }
 
   public getActiveDashboard(): Dashboard {
+    //bug fix - Widgets became duplicated?
+    this.activeDashboard.widgets =
+      this.activeDashboard.widgets.filter(function (elem, index, self) {
+        return index == self.indexOf(elem);
+      })
     return this.activeDashboard;
   }
 }

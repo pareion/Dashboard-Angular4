@@ -1,5 +1,5 @@
 export class Dashboard {
-  public id: number;
+  id: number;
   name: string;
   type: DashboardType;
   widgets: number[]; //IDs of widgets in order

@@ -30,7 +30,7 @@
         <ul class="treeview-menu">
           <li *ngFor="let dashboard of dashboards">
             <a href="#">{{dashboard.titel}} 
-              <i class="fa fa-trash pull-right" (click)="removeDashboard(dashboard)"></i>
+              <i class="fa fa-trash pull-right" (click)="changeDashboard(dashboard)"></i>
             </a>
           </li>
         </ul>

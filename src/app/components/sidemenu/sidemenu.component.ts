@@ -24,25 +24,23 @@ export class SidemenuComponent {
     this.activeWidgets = [];
     this.allWidgets = [];
 
-    console.log("Sidemenu constructor calling")
     this.setup();
   }
 
   setup() {
     let activeDashboard = this.dashboardcontroller.getActiveDashboard();
-
     this.clearMenu();
     this.listAllDashboards();
     this.listAllWidgets();
     this.setActiveDashboard(activeDashboard);
-    this.setActiveWidgets();
+    this.setActiveWidgets(activeDashboard);
     this.setActiveAllWidgets();
   }
 
   clearMenu() {
-    this.dashboards = [];
-    this.activeWidgets = [];
-    this.allWidgets = [];
+    this.dashboards.length = 0;
+    this.activeWidgets.length = 0;
+    this.allWidgets.length = 0;
   }
 
   listAllWidgets() {
@@ -68,19 +66,14 @@ export class SidemenuComponent {
   }
 
   setActiveDashboard(activeDashboard: Dashboard) {
-    //Sets the active dashboard from controller to active on sidemenu
-    this.dashboards.forEach(id => {
-      if (id.id == this.dashboardcontroller.getActiveDashboard().id) {
-        id.active = true;
-        this.activeDashboard = id.id;
-      }
-    });
+    this.activeDashboard = activeDashboard.id;
+    this.dashboards.find(d => d.id == this.activeDashboard).active = true;
   }
 
-  setActiveWidgets() {
+  setActiveWidgets(activeDashboard: Dashboard) {
     //Sets the active widgets on current dashboard to active
-    let widgets = this.dashboardcontroller.getActiveDashboard().widgets;
-    if (widgets) {
+    let widgets = activeDashboard.widgets;
+    if (widgets) { //gets double??
       widgets.forEach(widgetId => {
         let widget = this.widgetService.getWidgetbyId(widgetId);
         let menuElement = new MenuElement(
@@ -100,9 +93,10 @@ export class SidemenuComponent {
 
   changeDashboard(dashboardElement: MenuElement) {
     //Switch dashboard only if the active is not already active
-    if (this.dashboardcontroller.getActiveDashboard().id != dashboardElement.id) {
+    if (this.activeDashboard != dashboardElement.id) {
       //Set the current dashboard to not active
       this.dashboards.find(d => d.id == this.activeDashboard).active = false;
+      this.activeDashboard = undefined;
       this.dashboardcontroller.changeDashboard(dashboardElement.id);
       //Clear the whole sidemenu and load in again.
       this.setup();
@@ -111,11 +105,9 @@ export class SidemenuComponent {
 
   //To Do - fix
   removeDashboard(dashboardElement: MenuElement) {
-    this.changeDashboard(new MenuElement(2, false, false, ''));  ////TEST - delete
-
-    //this.dashboardcontroller.removeDashboard(dashboardElement.id); <-- uncomment
+    this.dashboardcontroller.removeDashboard(dashboardElement.id);
     //Clear the whole sidemenu and load in again.
-    //this.setup();
+    this.setup();
   }
 
   //Adds widget to active list
