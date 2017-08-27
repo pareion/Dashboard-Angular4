@@ -32,9 +32,12 @@ export class SidemenuComponent {
     this.clearMenu();
     this.listAllDashboards();
     this.listAllWidgets();
-    this.setActiveDashboard(activeDashboard);
-    this.setActiveWidgets(activeDashboard);
-    this.setActiveAllWidgets();
+    if (activeDashboard) {
+      this.setActiveDashboard(activeDashboard);
+      this.setActiveWidgets(activeDashboard);
+      this.setActiveAllWidgets();
+    }
+   
   }
 
   clearMenu() {
@@ -67,13 +70,16 @@ export class SidemenuComponent {
 
   setActiveDashboard(activeDashboard: Dashboard) {
     this.activeDashboard = activeDashboard.id;
-    this.dashboards.find(d => d.id == this.activeDashboard).active = true;
+    let dashboard = this.dashboards.find(d => d.id == this.activeDashboard);
+    if (dashboard != undefined) {
+      dashboard.active = true;
+    }
   }
 
   setActiveWidgets(activeDashboard: Dashboard) {
     //Sets the active widgets on current dashboard to active
     let widgets = activeDashboard.widgets;
-    if (widgets) { //gets double??
+    if (widgets.length > 0) {
       widgets.forEach(widgetId => {
         let widget = this.widgetService.getWidgetbyId(widgetId);
         let menuElement = new MenuElement(
@@ -92,22 +98,39 @@ export class SidemenuComponent {
   }
 
   changeDashboard(dashboardElement: MenuElement) {
-    //Switch dashboard only if the active is not already active
-    if (this.activeDashboard != dashboardElement.id) {
-      //Set the current dashboard to not active
-      this.dashboards.find(d => d.id == this.activeDashboard).active = false;
-      this.activeDashboard = undefined;
-      this.dashboardcontroller.changeDashboard(dashboardElement.id);
-      //Clear the whole sidemenu and load in again.
-      this.setup();
+    if (dashboardElement != null) {
+      //Switch dashboard only if the active is not already active
+      if (this.activeDashboard != dashboardElement.id) {
+        //No more dashboards on list
+        if (this.dashboards.length == 0) {
+        } else {
+          //Set the current dashboard to not active
+          this.dashboards.find(d => d.id == this.activeDashboard).active = false;
+          this.dashboardcontroller.changeDashboard(dashboardElement.id);
+        }
+      }
     }
+    //Clear the whole sidemenu and load in again.
+    this.setup();
   }
 
   //To Do - fix
   removeDashboard(dashboardElement: MenuElement) {
-    this.dashboardcontroller.removeDashboard(dashboardElement.id);
-    //Clear the whole sidemenu and load in again.
-    this.setup();
+    //case of removing current
+    if (this.activeDashboard == dashboardElement.id) {
+      //if other dashboard, switch to next one
+      if (this.dashboards.length != 1) {
+        let d = this.dashboards.find(d => d.id != this.activeDashboard);
+        this.dashboardcontroller.removeDashboard(dashboardElement.id);
+        this.changeDashboard(d);
+      } else {
+        this.dashboardcontroller.removeDashboard(dashboardElement.id);
+        this.changeDashboard(null)
+        this.setup();
+      }
+    } else {
+      this.dashboardcontroller.removeDashboard(dashboardElement.id);
+    }
   }
 
   //Adds widget to active list

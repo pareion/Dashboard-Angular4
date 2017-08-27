@@ -92,11 +92,14 @@ export class WidgetareaComponent implements OnInit {
 
   private changeDashboard() {
     this.clearArea();
-    this.setContentVariables(this.dashboardController.getActiveDashboard().type);
-    this.activeWidgets = this.dashboardController.getActiveDashboard().widgets;
-    this.activeWidgets.forEach(widgetId => {
-      this.addWidget(widgetId);
-    });
+    let activeDashboard = this.dashboardController.getActiveDashboard();
+    if(activeDashboard != undefined){
+      this.setContentVariables(activeDashboard.type);
+      this.activeWidgets = activeDashboard.widgets;
+      this.activeWidgets.forEach(widgetId => {
+        this.addWidget(widgetId);
+      });
+    }
   }
 
   private clearArea() {

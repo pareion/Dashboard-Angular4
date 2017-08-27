@@ -25,12 +25,10 @@ export class DashboardcontrollerService {
   private getDashboardConfiguration() {
     this.dashboards = this.userService.getUserData().configuration.dashboards;
 
-    //First load
+    //If there is no dashboards - the active will be undefined
     if (this.activeDashboard == undefined) {
       //start with the 1st one as active dashboard if there is any
-      if (this.dashboards.length == 0) {
-        this.activeDashboard = undefined;
-      } else {
+      if (this.dashboards.length != 0) {
         this.activeDashboard = this.dashboards[0];
       }
     }
@@ -65,9 +63,10 @@ export class DashboardcontrollerService {
 
   public removeDashboard(dashboardId: number) {
     this.userService.removeDashboard(dashboardId);
-    //Update
-    if (this.activeDashboard.id == dashboardId) {
-      this.getDashboardConfiguration();
+
+    if(dashboardId == this.activeDashboard.id){
+      this.activeDashboard = undefined;
+      this.changeDashboardEvent();
     }
   }
 
@@ -81,10 +80,12 @@ export class DashboardcontrollerService {
 
   public getActiveDashboard(): Dashboard {
     //bug fix - Widgets became duplicated?
-    this.activeDashboard.widgets =
+    if(this.activeDashboard){
+      this.activeDashboard.widgets =
       this.activeDashboard.widgets.filter(function (elem, index, self) {
         return index == self.indexOf(elem);
       })
+    }
     return this.activeDashboard;
   }
 }
