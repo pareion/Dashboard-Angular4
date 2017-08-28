@@ -47,9 +47,7 @@ export class WidgetareaComponent implements OnInit {
 
   private addWidget(widgetId: number) {
     //If no active dashboard
-    if (!this.dashboardController.getActiveDashboard()) {
-      return;
-    }
+    if (!this.dashboardController.getActiveDashboard()) { return; }
 
     //Get Widget
     let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
@@ -69,9 +67,7 @@ export class WidgetareaComponent implements OnInit {
 
   private removeWidget(widgetId: number) {
     //If no active dashboard
-    if (!this.dashboardController.getActiveDashboard()) {
-      return;
-    }
+    if (!this.dashboardController.getActiveDashboard()) { return; }
 
     //Resolve the component.
     let viewContainerRef = this.widgetHost.viewContainerRef;
