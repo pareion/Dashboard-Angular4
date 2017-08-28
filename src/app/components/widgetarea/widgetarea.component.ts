@@ -14,30 +14,30 @@ import { DashboardType } from "../../services/helperClasses/dashboard";
 export class WidgetareaComponent implements OnInit {
   @ViewChild(WidgetHostDirective) widgetHost: WidgetHostDirective;
 
-  activeWidgets: number[]; //ids of widget in order
-  contentHeader: boolean;
-  numCols: number; //To do. Not implemented in html
+  activeWidgets: number[]; //Ids of widgets
+  contentHeader: boolean; //If the small top widgets should be included
+  numCols: number; //Number of colons available - To do. Not implemented in html
 
   constructor(
     private widgetService: WidgetLibraryService,
     private dashboardController: DashboardcontrollerService,
     private componentFactoryResolver: ComponentFactoryResolver) {
-    
+
     //Set type of dashboard
     let activeDashboard = this.dashboardController.getActiveDashboard();
-    if(activeDashboard){
+    if (activeDashboard) {
       this.setContentVariables(this.dashboardController.getActiveDashboard().type);
     }
-    
+    //Wire up event handler
     this.dashboardController.addWidgetEvent = (widgetId: number) => this.addWidget(widgetId);
     this.dashboardController.removeWidgetEvent = (widgetId: number) => this.removeWidget(widgetId);
     this.dashboardController.changeDashboardEvent = () => this.changeDashboard();
     this.activeWidgets = [];
   }
 
-  ngOnInit(){
+  ngOnInit() {
     //If  active dashboard
-    if(this.dashboardController.getActiveDashboard()){
+    if (this.dashboardController.getActiveDashboard()) {
       //spawn in all widgets from config
       this.dashboardController.getActiveDashboard().widgets.forEach(widgetId => {
         this.addWidget(widgetId);
@@ -47,7 +47,7 @@ export class WidgetareaComponent implements OnInit {
 
   private addWidget(widgetId: number) {
     //If no active dashboard
-    if(!this.dashboardController.getActiveDashboard()){
+    if (!this.dashboardController.getActiveDashboard()) {
       return;
     }
 
@@ -69,7 +69,7 @@ export class WidgetareaComponent implements OnInit {
 
   private removeWidget(widgetId: number) {
     //If no active dashboard
-    if(!this.dashboardController.getActiveDashboard()){
+    if (!this.dashboardController.getActiveDashboard()) {
       return;
     }
 
@@ -78,7 +78,6 @@ export class WidgetareaComponent implements OnInit {
 
     //Find Widget index on active list
     let activeWidgetIndex: number;
-    
     for (var index = 0; index < this.activeWidgets.length; index++) {
       if (this.activeWidgets[index] == widgetId) {
         activeWidgetIndex = index;
@@ -90,10 +89,11 @@ export class WidgetareaComponent implements OnInit {
     viewContainerRef.remove(activeWidgetIndex);
   }
 
+  //Clear the area, get the active dashboard and spawn in widgets from that
   private changeDashboard() {
     this.clearArea();
     let activeDashboard = this.dashboardController.getActiveDashboard();
-    if(activeDashboard != undefined){
+    if (activeDashboard != undefined) {
       this.setContentVariables(activeDashboard.type);
       this.activeWidgets = activeDashboard.widgets;
       this.activeWidgets.forEach(widgetId => {
@@ -102,6 +102,7 @@ export class WidgetareaComponent implements OnInit {
     }
   }
 
+  //Clears area from widgets and contentHeader and numCols variables.
   private clearArea() {
     this.contentHeader = false;
     this.numCols = 0;
@@ -109,6 +110,7 @@ export class WidgetareaComponent implements OnInit {
     let componentRef = viewContainerRef.clear();
   }
 
+  //Sets contentHeader and numCols variables according to dashboardtype
   private setContentVariables(type: DashboardType) {
     switch (type) {
       case DashboardType.Standard1Col:
