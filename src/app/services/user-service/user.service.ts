@@ -26,7 +26,7 @@ export class UserService {
       das.push(d);
       das.push(d2);
       let config = new Configuration(das);
-      this.user = new User("Jeppe", "Ærenlund", "IT & Digitalisering", "Praktikant", config); 
+      this.user = new User("Darnell", "Tyrone", "IT & Digitalisering", "Praktikant", config); 
     }
     return this.user;
   }

@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user-service/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./topmenu.component.css']
 })
 export class TopmenuComponent implements OnInit {
-
-  constructor() { }
+  firstname: string;
+  lastname: string;
+  department: string;
+  occupation: string;
+  constructor(private userService: UserService) {
+    let user = userService.getUserData();
+    this.firstname = user.first_name;
+    this.lastname = user.last_name;
+    this.department = user.department;
+    this.occupation = user.occupation;
+   }
 
   ngOnInit() {
   }
