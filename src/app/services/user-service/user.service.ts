@@ -20,7 +20,7 @@ export class UserService {
 
     //Test - Last parameter is null, so a configuration will be generated
     if(this.user == undefined){
-      let d = new Dashboard(1, "Standard2Col", DashboardType.Standard2Col, [1]);
+      let d = new Dashboard(1, "Standard1Col", DashboardType.Standard1Col, [1]);
       let d2 = new Dashboard(2, "Content2col", DashboardType.TopWidgets2Col, [1]);
       let das = [];
       das.push(d);

@@ -51,7 +51,7 @@ export class WidgetareaComponent implements OnInit {
 
     //Get Widget
     let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
-
+    
     //Resolve component
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
     let viewContainerRef = this.widgetHost.viewContainerRef;
