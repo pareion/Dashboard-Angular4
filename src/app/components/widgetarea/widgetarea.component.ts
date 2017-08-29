@@ -66,13 +66,14 @@ export class WidgetareaComponent implements OnInit {
   }
 
   private removeWidget(widgetId: number) {
+    //console.log(this.activeWidgets[0] + " -" + this.activeWidgets[1])
     //If no active dashboard
     if (!this.dashboardController.getActiveDashboard()) { return; }
 
     //Resolve the component.
     let viewContainerRef = this.widgetHost.viewContainerRef;
 
-    //Find Widget index on active list
+    //Find Widget index on active list --------------------- this sometimes causes a bug
     let activeWidgetIndex: number;
     for (var index = 0; index < this.activeWidgets.length; index++) {
       if (this.activeWidgets[index] == widgetId) {
@@ -80,6 +81,7 @@ export class WidgetareaComponent implements OnInit {
         break;
       }
     }
+
     //Remove it from the widgetarea by index.
     this.activeWidgets.splice(activeWidgetIndex, 1);
     viewContainerRef.remove(activeWidgetIndex);
@@ -91,8 +93,8 @@ export class WidgetareaComponent implements OnInit {
     let activeDashboard = this.dashboardController.getActiveDashboard();
     if (activeDashboard != undefined) {
       this.setContentVariables(activeDashboard.type);
-      this.activeWidgets = activeDashboard.widgets;
-      this.activeWidgets.forEach(widgetId => {
+      //this.activeWidgets = activeDashboard.widgets;
+      activeDashboard.widgets.forEach(widgetId => {
         this.addWidget(widgetId);
       });
     }
@@ -102,6 +104,7 @@ export class WidgetareaComponent implements OnInit {
   private clearArea() {
     this.contentHeader = false;
     this.numCols = 0;
+    this.activeWidgets.length = 0;
     let viewContainerRef = this.widgetHost.viewContainerRef;
     let componentRef = viewContainerRef.clear();
   }
