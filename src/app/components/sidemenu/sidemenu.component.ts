@@ -3,6 +3,7 @@ import { WidgetLibraryService } from '../../services/widgetLibrary-service/widge
 import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
 import { MenuElement } from "../../services/helperClasses/MenuElement";
 import { Dashboard } from "../../services/helperClasses/dashboard";
+declare var swal: any;
 
 @Component({
   selector: 'app-sidemenu',
@@ -167,8 +168,69 @@ export class SidemenuComponent {
     }
   }
 
-  spawnDashboardInputForm(){
-    alert("hello")
+  //Sweetalert 2 implementation for getting user input
+  createNewDashboard() {
+    let title: string;
+    let type: number;
+    let comp = this;
+    let dashboardcontroller = this.dashboardcontroller;
+
+    swal({
+      title: 'Indtast navn til nyt dashboard',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      allowOutsideClick: false,
+      inputValidator: function (value) {
+        return new Promise(function (resolve, reject) {
+          if (value.length > 20 || value.length <= 0) {
+            reject('Brug mellem 0 og 20 bogstaver')
+          } else {
+            title = value;
+            resolve('Din beskrivelse er registreret')
+          }
+        })
+      },
+    }).then(function (email) {
+      swal({
+        title: 'Vælg en dashboard type',
+        input: 'select',
+        inputOptions: {
+          1: '1 kolonne uden header',
+          2: '2 kolonner uden header',
+          3: '1 kolonne med header',
+          4: '2 kolonne med header'
+        },
+        inputPlaceholder: 'Vælg en dashboard type',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Ja, godkend',
+        cancelButtonText: 'Nej, afbryd',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn',
+        buttonsStyling: true,
+        inputValidator: function (value) {
+          return new Promise(function (resolve, reject) {
+            if (value == 1 || value == 2 || value == 3 || value == 4) {
+              type = value;
+              resolve('Dit valg er registreret')
+              dashboardcontroller.addDashboard(title, type);
+              comp.setup();
+            } else {
+              reject('Vælg venligst en valid type')
+            }
+          })
+        }
+      })
+    }, function (dismiss) {
+      if (dismiss == 'cancel') {
+        swal(
+          'Afbrudt',
+          'Oprettelse af dashboard er blevet afbrudt',
+          'error'
+        )
+      }
+    })
   }
 }
 

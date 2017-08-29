@@ -20,6 +20,6 @@ export class Dashboard {
 export enum DashboardType {
   Standard1Col = 1,
   Standard2Col = 2,
-  TopWidgets2Col = 3,
-  TopWidgets1Col = 4
+  TopWidgets1Col = 3,
+  TopWidgets2Col = 4
 }

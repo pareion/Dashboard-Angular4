@@ -20,8 +20,9 @@ export class UserService {
 
     //Test - Last parameter is null, so a configuration will be generated
     if(this.user == undefined){
-      let d = new Dashboard(1, "Standard1Col", DashboardType.Standard1Col, [1]);
-      let d2 = new Dashboard(2, "Content2col", DashboardType.TopWidgets2Col, [1]);
+      console.log("User test data")
+      let d = new Dashboard(1, "Standard1Col", 1, [1]);
+      let d2 = new Dashboard(2, "Content2col", 4, [1]);
       let das = [];
       das.push(d);
       das.push(d2);
@@ -48,7 +49,10 @@ export class UserService {
     //Call api to add
 
     //Add to local data
-    this.user.configuration.dashboards.push(dashboard);
+    //Temp solution. should fetch new form usre to get updated.
+    dashboard.id = this.user.configuration.dashboards.length + 1001;
+    let dash = new Dashboard(this.user.configuration.dashboards.length + 1001, dashboard.name, dashboard.type); 
+    this.user.configuration.dashboards.push(dash);
   }
 
   public addWidget(widgetId: number, dashboardId: number) {

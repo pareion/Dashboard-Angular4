@@ -111,7 +111,27 @@ export class WidgetareaComponent implements OnInit {
 
   //Sets contentHeader and numCols variables according to dashboardtype
   private setContentVariables(type: DashboardType) {
-    switch (type) {
+    if(type == 1){
+      this.contentHeader = false;
+      this.numCols = 1;
+    } 
+    else if(type == 2){
+      this.contentHeader = false;
+      this.numCols = 2;
+    }
+    else if(type == 3){
+      this.contentHeader = true;
+      this.numCols = 1;
+    }
+    else if(type == 4){
+      this.contentHeader = true;
+      this.numCols = 2;
+    }
+    else{
+    }
+
+    //Bug City - Enums doesnt work sometimes in switch case.
+    /*switch (type) {
       case DashboardType.Standard1Col:
         this.contentHeader = false;
         this.numCols = 1;
@@ -129,7 +149,8 @@ export class WidgetareaComponent implements OnInit {
         this.numCols = 2;
         break;
       default:
+      console.log("hello darkness")
         break;
-    }
+    } */
   }
 }
