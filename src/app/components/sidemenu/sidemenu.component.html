@@ -29,9 +29,14 @@
             </a>
         <ul class="treeview-menu">
           <li *ngFor="let dashboard of dashboards">
-            <a (click)="changeDashboard(dashboard)" href="#">{{dashboard.titel}}
+            <a (click)="changeDashboard(dashboard)" href="#"> {{dashboard.titel}}
               <i class="fa fa-trash pull-right" (click)="removeDashboard(dashboard)"></i>
               <i [ngClass]="dashboard.active ? 'fa fa-eye pull-right' : ''"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)=spawnDashboardInputForm() href="#"> Opret nyt dashboard
+              <i class="fa fa-plus pull-right"></i>
             </a>
           </li>
         </ul>

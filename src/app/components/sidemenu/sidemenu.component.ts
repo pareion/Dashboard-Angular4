@@ -26,7 +26,7 @@ export class SidemenuComponent {
     this.setup();
   }
 
-  setup() {
+  private setup() {
     //Gets the active dashboard, clears the menu.
     //if there is an active dashboard, proceed to fill in widgets, else dont.
     let activeDashboard = this.dashboardcontroller.getActiveDashboard();
@@ -165,6 +165,10 @@ export class SidemenuComponent {
       this.dashboardcontroller.removeWidget(widget.id);
       this.setup();
     }
+  }
+
+  spawnDashboardInputForm(){
+    alert("hello")
   }
 }
 
