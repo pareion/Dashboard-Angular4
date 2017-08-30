@@ -18,6 +18,7 @@ import { TestboxComponent } from './components/widgets/testbox/testbox.component
 import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
 
 import {HttpModule} from '@angular/http';
+import { TemplateDateTimePickerComponent } from './components/widgets/template-date-time-picker/template-date-time-picker.component';
 
 @NgModule({
   declarations: [
@@ -32,12 +33,13 @@ import {HttpModule} from '@angular/http';
     //Dynamic Widgets----->
     TestboxComponent,
     StationskortComponent,
+    TemplateDateTimePickerComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent], //<--- Dynamic Components resgiter here
+  entryComponents: [TestboxComponent, StationskortComponent,TemplateDateTimePickerComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService],
   bootstrap: [AppComponent]
 })

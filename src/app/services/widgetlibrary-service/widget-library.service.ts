@@ -4,6 +4,7 @@ import { WidgetItem } from './widget-item';
 //Component Import - Add here when you register component ---------->
 import { TestboxComponent } from './../../components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './../../components/widgets/stationskort/stationskort.component';
+import { TemplateDateTimePickerComponent } from './../../components/widgets/template-date-time-picker/template-date-time-picker.component';
 //<------------------------------------------------------------------
 
 @Injectable()
@@ -16,6 +17,7 @@ export class WidgetLibraryService {
     //Register all widgets here
     this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks'));
     this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
+    this.widgets.push(new WidgetItem(TemplateDateTimePickerComponent,3, 'Datetime pickere'));
     //--------> Add more here
 
     //Sort array based on title name
