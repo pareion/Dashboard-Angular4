@@ -11,6 +11,8 @@ import { ControlsidebarComponent } from './components/controlsidebar/controlside
 
 import { WidgetLibraryService } from './services/widgetLibrary-service/widget-library.service';
 import { WidgetHostDirective } from './directives/widget-host.directive';
+import { UserService } from './services/user-service/user.service';
+import { DashboardcontrollerService } from "./services/dashboardcontroller-service/dashboardcontroller.service";
 import { GmapService } from './components/widgets/stationskort/gmap.service';
 import { GmapSAService } from './components/widgets/speed-average-heatmap/gmap.service';
 import { TestboxComponent } from './components/widgets/testbox/testbox.component';
@@ -43,7 +45,8 @@ import { DatePickerModule } from 'ng2-datepicker';
     HttpModule
   ],
   entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent], //<--- Dynamic Components resgiter here
-  providers: [WidgetLibraryService, GmapService, GmapSAService],
+  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

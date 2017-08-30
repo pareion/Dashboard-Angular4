@@ -16,7 +16,7 @@ export class StationskortComponent implements WidgetComponent, OnInit {
   @Input() title: string;
   @ViewChild('map') mapRef: ElementRef;
 
-  private apiUrl = "http://adm-trafik-01.odknet.dk:1000/api/Reader/GetAllStations";
+  private apiUrl = "http://adm-trafik-01.odknet.dk:2002/api/GetAllStations/Stations";
   data: any = [];
 
   constructor(private gmapService: GmapService, private http: Http) {
