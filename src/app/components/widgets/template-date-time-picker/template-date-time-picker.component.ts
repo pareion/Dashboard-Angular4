@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
+
 import * as $ from 'jquery';
 
 @Component({
@@ -12,19 +13,28 @@ export class TemplateDateTimePickerComponent  implements WidgetComponent, OnInit
   @Input() title: string;
 
   dateFrom: Date = new Date();
-  datepickerOpts = {
-      startDate: new Date().getDate,
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      assumeNearbyYear: true,
-      format: 'D, d MM yyyy'
-  }
+  dateTo: Date = new Date();
+  
+  apidate: string;
+  apiMinutes: string;
 
+  datepickerOpts = {
+    autoclose: true,
+    todayHighlight: true,
+    assumeNearbyYear: true,
+    format: 'd MM yyyy'
+}
 
   constructor() { }
 
   ngOnInit() {
   }
+
+ //test
+  getDate(dt: Date): string {
+    return dt.toISOString().slice(0,10) + " " +  dt.getHours() + ":" + (dt.getMinutes()<10?'0':'') + dt.getMinutes();
+    //dt.toLocaleTimeString();
+  }
+
 
 }
