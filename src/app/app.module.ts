@@ -15,6 +15,7 @@ import { UserService } from './services/user-service/user.service';
 import { DashboardcontrollerService } from "./services/dashboardcontroller-service/dashboardcontroller.service";
 import { GmapService } from './components/widgets/stationskort/gmap.service';
 import { GmapSAService } from './components/widgets/speed-average-heatmap/gmap.service';
+import { GmapSAASService } from './components/widgets/average-speed-heatmap-all-stations/gmap.service';
 import { TestboxComponent } from './components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
 
@@ -22,6 +23,7 @@ import {HttpModule} from '@angular/http';
 import { SpeedAverageHeatmapComponent } from './components/widgets/speed-average-heatmap/speed-average-heatmap.component';
 
 import { DatePickerModule } from 'ng2-datepicker';
+import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { DatePickerModule } from 'ng2-datepicker';
     TestboxComponent,
     StationskortComponent,
     SpeedAverageHeatmapComponent,
+    AverageSpeedHeatmapAllStationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,8 +47,8 @@ import { DatePickerModule } from 'ng2-datepicker';
     DatePickerModule,
     HttpModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent], //<--- Dynamic Components resgiter here
-  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService],
+  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent], //<--- Dynamic Components resgiter here
+  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
 
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
-import { GmapSAService } from '../../../components/widgets/speed-average-heatmap/gmap.service';
+import { GmapSAASService } from '../../../components/widgets/average-speed-heatmap-all-stations/gmap.service';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -8,12 +8,11 @@ import { FormsModule  } from '@angular/forms';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
 @Component({
-  selector: '[app-speed-average-heatmap]',
-  templateUrl: './speed-average-heatmap.component.html',
-  styleUrls: ['./speed-average-heatmap.component.css']
+  selector: '[app-average-speed-heatmap-all-stations]',
+  templateUrl: './average-speed-heatmap-all-stations.component.html',
+  styleUrls: ['./average-speed-heatmap-all-stations.component.css']
 })
-
-export class SpeedAverageHeatmapComponent implements OnInit {
+export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   @Input() id: number;
   @Input() title: string;
   @ViewChild('map') mapRef: ElementRef;
@@ -22,23 +21,23 @@ export class SpeedAverageHeatmapComponent implements OnInit {
   dateFrom: DateModel;
   options: DatePickerOptions;
   options2: DatePickerOptions;
-  station: String;
-
-  heatmap : google.maps.visualization.HeatmapLayer;
-  data: any = [];
 
   private apiUrl;
-  constructor(private gmapSAService: GmapSAService, private http: Http) { 
+  constructor(private gmapSAService: GmapSAASService, private http: Http) { 
     this.options = new DatePickerOptions();
     this.options2 = new DatePickerOptions();
     this.options.format = "YYYY-MM-DD";
     this.options2.format = "YYYY-MM-DD";
   }
+
   ngOnInit() {
-    this.initGoogleMap()
-  } 
+    this.initGoogleMap();
+  }
   onClick(){
-    this.apiUrl= "http://adm-trafik-01.odknet.dk:2001/api/AverageSpeed/GetMeasurementsBetweenDates?from="+this.dateTo.formatted+"&to="+this.dateFrom.formatted+"&station="+this.station;
+    console.log(this.dateTo)
+    console.log(this.dateFrom)
+    
+    this.apiUrl= "http://adm-trafik-01.odknet.dk:2003/api/AverageSpeed/GetMeasurementsBetweenDatesAllStations?from="+this.dateTo.formatted+"&to="+this.dateFrom.formatted;
     this.LoadHeatmap()
     console.log(this.apiUrl)
     console.log("clicked!")
@@ -55,8 +54,14 @@ export class SpeedAverageHeatmapComponent implements OnInit {
     },null));
   }
   LoadHeatmap():void{
-    this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(marker => {
-      this.gmapSAService.addHeatmap(Number(marker.latitude), Number(marker.longitude), Number(marker.averageSpeed), marker.name);
+    this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(response => {
+      console.log(response)
+      if(response){
+        for (var i in response) {
+          var marker = response[i];
+          this.gmapSAService.addHeatmap(Number(marker.latitude), Number(marker.longitude), Number(marker.measurement), marker.name);
+        }
+      }
     })
   }
 }
