@@ -17,11 +17,11 @@ import { GmapService } from './components/widgets/stationskort/gmap.service';
 import { TestboxComponent } from './components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
 
-import {HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { TemplateDateTimePickerComponent } from './components/widgets/template-date-time-picker/template-date-time-picker.component';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
-import {BoostrapTimePicker} from 'bootstrap-datepicker/';
+import { SpeedAverageHeatmapComponent } from './components/widgets/speed-average-heatmap/speed-average-heatmap.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +37,14 @@ import {BoostrapTimePicker} from 'bootstrap-datepicker/';
     TestboxComponent,
     StationskortComponent,
     TemplateDateTimePickerComponent,
+    SpeedAverageHeatmapComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NKDatetimeModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent,TemplateDateTimePickerComponent], //<--- Dynamic Components resgiter here
+  entryComponents: [TestboxComponent, StationskortComponent, TemplateDateTimePickerComponent,SpeedAverageHeatmapComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService],
   bootstrap: [AppComponent]
 })
