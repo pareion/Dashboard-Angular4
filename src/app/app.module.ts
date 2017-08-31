@@ -19,6 +19,9 @@ import { StationskortComponent } from './components/widgets/stationskort/station
 
 import {HttpModule} from '@angular/http';
 import { TemplateDateTimePickerComponent } from './components/widgets/template-date-time-picker/template-date-time-picker.component';
+import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+
+import {BoostrapTimePicker} from 'bootstrap-datepicker/';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { TemplateDateTimePickerComponent } from './components/widgets/template-d
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    NKDatetimeModule
   ],
   entryComponents: [TestboxComponent, StationskortComponent,TemplateDateTimePickerComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService],

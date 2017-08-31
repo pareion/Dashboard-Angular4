@@ -5,7 +5,7 @@
       </ul>
       <div class="tab-content no-padding">
         <div class=" tab-pane active" style="position: relative; height: 520px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-          <p>this is datetime</p>
+            <datetime [timepicker]="{ showMeridian: false, minuteStep: 1 }" [datepicker]="datepickerOpts" [(ngModel)]="date2"></datetime>
         </div>
       </div>
     </div>
