@@ -17,7 +17,7 @@ export class WidgetLibraryService {
     //Register all widgets here
     this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks'));
     this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
-    this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 3, "SpeedAverageHeatmapComponent"))
+    this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 3, "SpeedAverageHeatmap"))
     //--------> Add more here
 
     //Sort array based on title name
