@@ -7,6 +7,7 @@ import { StationskortComponent } from './../../components/widgets/stationskort/s
 import { TemplateDateTimePickerComponent } from './../../components/widgets/template-date-time-picker/template-date-time-picker.component';
 import { SpeedAverageHeatmapComponent } from './../../components/widgets/speed-average-heatmap/speed-average-heatmap.component';
 import { StationCartypeAmountComponent } from './../../components/widgets/station-cartype-amount/station-cartype-amount.component';
+import { AverageSpeedHeatmapAllStationsComponent } from './../../components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
 //<------------------------------------------------------------------
 
 @Injectable()
@@ -22,6 +23,8 @@ export class WidgetLibraryService {
     this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 3, "Heatmap gennemsnitshastighed"))
     this.widgets.push(new WidgetItem(TemplateDateTimePickerComponent, 4, 'Datetime picker'));
     this.widgets.push(new WidgetItem(StationCartypeAmountComponent, 6, 'Antal biltyper på station'));
+    this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 5, "SpeedAverageHeatmapComponent"))
+    this.widgets.push(new WidgetItem(AverageSpeedHeatmapAllStationsComponent, 4, "Average Speed Heatmap All Stations"))
     //--------> Add more here
 
     //Sort array based on title name

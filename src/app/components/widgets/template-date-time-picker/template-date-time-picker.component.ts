@@ -22,7 +22,7 @@ export class TemplateDateTimePickerComponent  implements WidgetComponent, OnInit
 }
 
 private apiUrl: string;
-
+selectedStation : string;
 
   constructor() { }
 
@@ -35,13 +35,12 @@ private apiUrl: string;
   }
 
   getApiData(){
-    var dateFrom = this.dateFrom.toISOString().slice(0,10);
-    var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes()<10?'0':'') + this.dateFrom.getMinutes();
-    var dateTo = this.dateTo.toISOString().slice(0,10);
-    var timeTo =  this.dateTo.getHours() + ":" + ( this.dateTo.getMinutes()<10?'0':'') +  this.dateTo.getMinutes();
+    var dateFrom = this.dateFrom.toISOString().slice(0, 10);
+    var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
+    var dateTo = this.dateTo.toISOString().slice(0, 10);
+    var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
 
-
-    this.apiUrl = "http://adm-trafik-01.odknet.dk:1000/api/InsertRealController/InsertRealActioName?from="+ dateFrom +"&to="+"test"+"&station="+ "test"+ "";
+    this.apiUrl = "http://adm-trafik-01.odknet.dk:1000/api/InsertRealController/InsertRealActioName?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&station=" +this.selectedStation;
 
   }
 
