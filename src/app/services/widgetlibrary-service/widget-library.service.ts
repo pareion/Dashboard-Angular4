@@ -5,6 +5,7 @@ import { WidgetItem } from './widget-item';
 import { TestboxComponent } from './../../components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './../../components/widgets/stationskort/stationskort.component';
 import { SpeedAverageHeatmapComponent } from './../../components/widgets/speed-average-heatmap/speed-average-heatmap.component';
+import { AverageSpeedHeatmapAllStationsComponent } from './../../components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
 //<------------------------------------------------------------------
 
 @Injectable()
@@ -18,6 +19,7 @@ export class WidgetLibraryService {
     this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks'));
     this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
     this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 3, "SpeedAverageHeatmapComponent"))
+    this.widgets.push(new WidgetItem(AverageSpeedHeatmapAllStationsComponent, 4, "Average Speed Heatmap All Stations"))
     //--------> Add more here
 
     //Sort array based on title name

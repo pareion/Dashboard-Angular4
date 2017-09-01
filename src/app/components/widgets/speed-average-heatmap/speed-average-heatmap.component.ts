@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { FormsModule  } from '@angular/forms';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+
 @Component({
   selector: '[app-speed-average-heatmap]',
   templateUrl: './speed-average-heatmap.component.html',
