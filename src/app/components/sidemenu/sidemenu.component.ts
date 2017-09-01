@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component } from '@angular/core';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
@@ -55,6 +56,11 @@ export class SidemenuComponent {
         this.widgetService.widgets[index].id,
         false, false,
         this.widgetService.widgets[index].title);
+
+      //Rezise name to max 20 letters
+      if (element.titel.length > 20) {
+        element.titel = element.titel.slice(0, 20) + "...";
+      }
       //Add to allWidgets
       this.allWidgets.push(element);
     }
@@ -66,6 +72,10 @@ export class SidemenuComponent {
       let menuElement = new MenuElement(
         dashboard.id, true, false, dashboard.name
       );
+      //Rezise name to max 20 letters
+      if (menuElement.titel.length > 20) {
+        menuElement.titel = menuElement.titel.slice(0, 20) + "...";
+      }
       this.dashboards.push(menuElement);
     });
   }
@@ -87,9 +97,14 @@ export class SidemenuComponent {
       //generates and menuelement for each widget and pushes into list.
       widgets.forEach(widgetId => {
         let widget = this.widgetService.getWidgetbyId(widgetId);
-        let menuElement = new MenuElement(
+        let element = new MenuElement(
           widget.id, true, true, widget.title);
-        this.activeWidgets.push(menuElement);
+
+        //Rezise name to max 20 letters
+        if (element.titel.length > 20) {
+          element.titel = element.titel.slice(0, 20) + "...";
+        }
+        this.activeWidgets.push(element);
       })
     }
   }

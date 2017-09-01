@@ -4,7 +4,6 @@ import { WidgetComponent } from './../../services/widgetLibrary-service/widget.c
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
 import { WidgetLibraryService } from '../../services/widgetLibrary-service/widget-library.service';
 import { DashboardcontrollerService } from "../../services/dashboardcontroller-service/dashboardcontroller.service";
-import { DashboardType } from "../../services/helperClasses/dashboard";
 
 @Component({
   selector: 'app-widgetarea',
@@ -110,7 +109,7 @@ export class WidgetareaComponent implements OnInit {
   }
 
   //Sets contentHeader and numCols variables according to dashboardtype
-  private setContentVariables(type: DashboardType) {
+  private setContentVariables(type: number) {
     if(type == 1){
       this.contentHeader = false;
       this.numCols = 1;
