@@ -1,0 +1,41 @@
+<div class="box box-success" id="{{ id }}">
+  <div class="nav-tabs-custom" style="cursor: move;">
+    <ul class="nav nav-tabs pull-right ui-sortable-handle">
+      <li class="pull-left header"><i class="fa fa-bars"></i>{{ title }}</li>
+    </ul>
+    <div class="tab-content no-padding">
+      <div class=" tab-pane active" style="position: relative; height: 700px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+   
+       
+        <p>stationer med data: Anderupvej, rismarksvej,volsmoseallé, falen, Niels bohr, Nyborgvej</p>
+        <p>Station: </p>
+        <input type="text" class="form-control" id="selectedItem" [(ngModel)]="selectedItem">
+
+     <!-- 
+
+        <select (click)="getSelectedStation()" [(ngModel)]="selectedItem" >
+            <option *ngFor="let item of dataStations" [ngValue]="item.name"> {{ item.name }}</option>
+          </select>
+ -->
+        
+        <p>Fra:</p>
+        <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateFrom" [timepicker]="{ showMeridian: false, minuteStep: 1, showSeconds:false, defaultTime:'current', explicitMode:false}"></datetime>
+        <p><b></b></p>
+
+        <br>
+
+        <p>Til:</p>
+        <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateTo" [timepicker]="{ showMeridian: false, minuteStep: 5, showSeconds:false, defaultTime:'current', explicitMode:false}"></datetime>
+        <p><b></b></p>
+
+        <button type="button" class="btn btn-primary" (click)="getApiData()">Søg</button>
+
+        <p *ngFor="let amount of data; let i = index">
+          {{switchCase(i) }} {{carTypeName}} , antal: {{amount}}
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,7 @@ import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import { SpeedAverageHeatmapComponent } from './components/widgets/speed-average-heatmap/speed-average-heatmap.component';
 
 import { DatePickerModule } from 'ng2-datepicker';
+import { StationCartypeAmountComponent } from './components/widgets/station-cartype-amount/station-cartype-amount.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { DatePickerModule } from 'ng2-datepicker';
     TestboxComponent,
     StationskortComponent,
     SpeedAverageHeatmapComponent,
-    TemplateDateTimePickerComponent
+    TemplateDateTimePickerComponent,
+    StationCartypeAmountComponent
   
   ],
   imports: [
@@ -51,7 +53,7 @@ import { DatePickerModule } from 'ng2-datepicker';
     DatePickerModule,
     NKDatetimeModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, TemplateDateTimePickerComponent], //<--- Dynamic Components resgiter here
+  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, TemplateDateTimePickerComponent, StationCartypeAmountComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService],
   bootstrap: [AppComponent]
 })
