@@ -10,14 +10,17 @@
        
         <p>stationer med data: Anderupvej, rismarksvej,volsmoseallé, falen, Niels bohr, Nyborgvej</p>
         <p>Station: </p>
+        
+          <!-- 
+
         <input type="text" class="form-control" id="selectedItem" [(ngModel)]="selectedItem">
 
-     <!-- 
-
+          -->
+          
         <select (click)="getSelectedStation()" [(ngModel)]="selectedItem" >
             <option *ngFor="let item of dataStations" [ngValue]="item.name"> {{ item.name }}</option>
           </select>
- -->
+  
         
         <p>Fra:</p>
         <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateFrom" [timepicker]="{ showMeridian: false, minuteStep: 1, showSeconds:false, defaultTime:'current', explicitMode:false}"></datetime>

@@ -1,18 +1,22 @@
 <div class="box box-success" id="{{ id }}">
-    <div class="nav-tabs-custom" style="cursor: move;">
-      <ul class="nav nav-tabs pull-right ui-sortable-handle">
-        <li class="pull-left header"><i class="fa fa-bars"></i>{{ title }}</li>
-      </ul>
-      <div class="tab-content no-padding">
-        <div class=" tab-pane active" style="position: relative; height: 250px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-          <p>Fra:</p> <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateFrom" [timepicker]="{ showMeridian: false, minuteStep: 1, showSeconds:false, defaultTime:'current', explicitMode:false}" ></datetime>
-          <p><b>{{getDate(dateFrom)}}</b></p>
-          <br>
-        <p>Til:</p> <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateTo" [timepicker]="{ showMeridian: false, minuteStep: 5, showSeconds:false, defaultTime:'current', explicitMode:false}" ></datetime>
-          <p><b>{{getDate(dateTo)}}</b></p>
+  <div class="nav-tabs-custom" style="cursor: move;">
+    <ul class="nav nav-tabs pull-right ui-sortable-handle">
+      <li class="pull-left header"><i class="fa fa-bars"></i>{{ title }}</li>
+    </ul>
+    <div class="tab-content no-padding">
+      <div class=" tab-pane active" style="position: relative; height: 250px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+        <p>Fra:</p>
+        <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateFrom" [timepicker]="{ showMeridian: false, minuteStep: 1, showSeconds:false, defaultTime:'current', explicitMode:false}"></datetime>
+        <!--getDate(dateFrom)  = TEST  -->
+        <p><b>{{getDate(dateFrom)}}</b></p>
+        <br>
+        <p>Til:</p>
+        <datetime [datepicker]="{ icon: 'fa fa-calendar' }" [(ngModel)]="dateTo" [timepicker]="{ showMeridian: false, minuteStep: 5, showSeconds:false, defaultTime:'current', explicitMode:false}"></datetime>
+        <!--getDate(dateTo) = TEST  -->
+        <p><b>{{getDate(dateTo)}}</b></p>
 
-          <button type="button" class="btn btn-primary">Søg</button>
-        </div>
+        <button type="button" class="btn btn-primary">Søg</button>
       </div>
     </div>
   </div>
+</div>

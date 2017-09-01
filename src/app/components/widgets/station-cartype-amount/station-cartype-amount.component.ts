@@ -68,7 +68,8 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     var dateTo = this.dateTo.toISOString().slice(0, 10);
     var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
 
-    this.apiUrl = "http://adm-trafik-01.odknet.dk:2004/api/CarType/GetCarTypes?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&station=" +this.selectedItem;
+    var fixedstring = this.selectedItem.split(' ')[0];
+    this.apiUrl = "http://adm-trafik-01.odknet.dk:2004/api/CarType/GetCarTypes?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&station=" + fixedstring;
     console.log(this.apiUrl)
 
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(data => {
