@@ -21,7 +21,9 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   dateFrom: DateModel;
   options: DatePickerOptions;
   options2: DatePickerOptions;
-
+  markersRed: any = [];
+  markersGreen: any = [];
+  markersYellow: any = [];
   private apiUrl;
   constructor(private gmapSAService: GmapSAASService, private http: Http) { 
     this.options = new DatePickerOptions();
@@ -34,13 +36,8 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
     this.initGoogleMap();
   }
   onClick(){
-    console.log(this.dateTo)
-    console.log(this.dateFrom)
-    
     this.apiUrl= "http://adm-trafik-01.odknet.dk:2003/api/AverageSpeed/GetMeasurementsBetweenDatesAllStations?from="+this.dateTo.formatted+"&to="+this.dateFrom.formatted;
     this.LoadHeatmap()
-    console.log(this.apiUrl)
-    console.log("clicked!")
   }
   initGoogleMap(){
     (this.gmapSAService.initMap(this.mapRef.nativeElement, {
@@ -55,13 +52,21 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   }
   LoadHeatmap():void{
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(response => {
-      console.log(response)
+
       if(response){
-        for (var i in response) {
-          var marker = response[i];
-          this.gmapSAService.addHeatmap(Number(marker.latitude), Number(marker.longitude), Number(marker.measurement), marker.name);
-        }
+        Array.from(response).forEach((marker,i) => {
+          if(marker['measurement'] < 30 && marker['measurement'] > 0){
+              this.markersYellow.push(marker)
+          }else if(marker['measurement'] > 30){
+              this.markersRed.push(marker)
+          }else{
+              this.markersGreen.push(marker)
+          }
+        });
       }
+      this.gmapSAService.addHeatmap(this.markersGreen,0,255)
+      this.gmapSAService.addHeatmap(this.markersYellow,255,255)
+      this.gmapSAService.addHeatmap(this.markersRed,255,0)
     })
   }
 }

@@ -8,7 +8,8 @@ export class GmapSAASService {
   private heatmap : google.maps.visualization.HeatmapLayer;  
   private geocoder: google.maps.Geocoder;
   private scriptLoadingPromise: Promise<void>;
-
+  private red : number
+  private green : number
   constructor() {
         //Loading script
         this.loadScriptLoadingPromise();
@@ -51,27 +52,23 @@ export class GmapSAASService {
   addMarker(lat: number, lng: number, name: string): void{
       new google.maps.Marker({map: this.map, title: name, position: {lat:lat, lng:lng}});
   }
-  addHeatmap(lat: number, lng: number, avgspeed: number, name: string){
-
+  data: any[] = []
+  addHeatmap(any: any[], red: number, green: number){
+    
     return this.onReady().then(() => {
+      this.data = []
       //this.addMarker(lat, lng, name)
+      Array.from(any).forEach((marker,i) => {
+        this.data.push(new google.maps.LatLng(marker['latitude'],marker['longitude']))
+      });
       this.heatmap = new google.maps.visualization.HeatmapLayer({
-        data: [
-          new google.maps.LatLng(lat, lng)
-        ],
+        data: this.data,
         map: this.map
       });
-      if(avgspeed > 30){
-        this.heatmap.set('gradient', ['rgba(255, 0, 0, 0)',
-        'rgba(255, 0, 0, 1)'])
-      }else if(avgspeed <= 30 && avgspeed > 0){
-        this.heatmap.set('gradient', ['rgba(255, 255, 0, 0)',
-        'rgba(255, 255, 0, 1)'])
-      }else {
-        this.heatmap.set('gradient', ['rgba(0, 225, 0, 0)',
-        'rgba(0, 255, 0, 1)'])
-      }
-      this.heatmap.set('radius',30);
+      this.heatmap.set('gradient', ['rgba('+red.valueOf()+','+green.valueOf()+', 0, 0)',
+      'rgba('+red.valueOf()+','+green.valueOf()+', 0, 1)'])
+
+      this.heatmap.set('radius',10);
       this.heatmap.set('opacity', 1);
       
       this.heatmap.setMap(this.map);  
