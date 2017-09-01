@@ -50,15 +50,8 @@ import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/av
     DatePickerModule,
     HttpModule
   ],
-<<<<<<< HEAD
   entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
-=======
-  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent], //<--- Dynamic Components resgiter here
-  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, 
-    GmapService, GmapSAService], 
->>>>>>> 9f33b0967bba7d22f68652253435c77be0eab8a9
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
