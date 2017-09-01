@@ -1,13 +1,7 @@
 //Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
 import { FormsModule } from '@angular/forms';
-=======
-import { FormsModule  } from '@angular/forms';
-import {HttpModule} from '@angular/http';
-import { DatePickerModule } from 'ng2-datepicker';
->>>>>>> c4fb696304e51a85a2c80dc3b305f6a20787216d
 
 //Layout
 import { AppComponent } from './app.component';
