@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+.styled-select {
+    width: 200px;
+    height: 33px;
+    overflow: hidden;
+}   
+
+.widget-style{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.spacing-btn{
+    margin-left:25px;
+}
+
+/*
+ Extra small devices (portrait phones, less than 576px) 
+@media (max-width: 575px) { 
+
+}
+*/
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767px) { 
+    .widget-style{
+        margin-left: 20px;
+        margin-top: 5px;
+        margin-right: 20px;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991px) { 
+
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199px) {
+
+}
