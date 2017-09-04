@@ -24,7 +24,7 @@ export class WidgetLibraryService {
     this.widgets.push(new WidgetItem(TemplateDateTimePickerComponent, 4, 'Datetime picker'));
     this.widgets.push(new WidgetItem(StationCartypeAmountComponent, 6, 'Antal biltyper på station'));
     this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 5, "SpeedAverageHeatmapComponent"))
-    this.widgets.push(new WidgetItem(AverageSpeedHeatmapAllStationsComponent, 4, "Average Speed Heatmap All Stations"))
+    this.widgets.push(new WidgetItem(AverageSpeedHeatmapAllStationsComponent, 7, "Average Speed Heatmap All Stations"))
     //--------> Add more here
 
     //Sort array based on title name
