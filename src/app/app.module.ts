@@ -21,7 +21,6 @@ import { GmapSAService } from './widgets/speed-average-heatmap/gmap.service';
 import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gmap.service';
 
 import { HttpModule } from '@angular/http';
-import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 //danymic components
 
 @NgModule({
@@ -38,8 +37,7 @@ import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule,
-    NKDatetimeModule
+    FormsModule
   ],
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
   bootstrap: [AppComponent]

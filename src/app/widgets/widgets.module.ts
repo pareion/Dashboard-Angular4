@@ -9,10 +9,13 @@ import { DatePickerModule } from "ng2-datepicker";
 import { StationCartypeAmountComponent } from './station-cartype-amount/station-cartype-amount.component';
 import { TemplateDateTimePickerComponent } from './template-date-time-picker/template-date-time-picker.component';
 
+import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+
 @NgModule({
   imports: [
     CommonModule,
     DatePickerModule,
+    NKDatetimeModule,
     FormsModule
   ],
   declarations: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent, TemplateDateTimePickerComponent, StationCartypeAmountComponent],
