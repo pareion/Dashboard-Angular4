@@ -18,15 +18,9 @@ import { WidgetLibraryService } from './services/widgetLibrary-service/widget-li
 import { WidgetHostDirective } from './directives/widget-host.directive';
 import { UserService } from './services/user-service/user.service';
 import { DashboardcontrollerService } from "./services/dashboardcontroller-service/dashboardcontroller.service";
-import { GmapService } from './components/widgets/stationskort/gmap.service';
-import { GmapSAService } from './components/widgets/speed-average-heatmap/gmap.service';
-import { GmapSAASService } from './components/widgets/average-speed-heatmap-all-stations/gmap.service';
-
-//danymic components
-import { TestboxComponent } from './components/widgets/testbox/testbox.component';
-import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
-import { SpeedAverageHeatmapComponent } from './components/widgets/speed-average-heatmap/speed-average-heatmap.component';
-import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
+import { GmapService } from './widgets/stationskort/gmap.service';
+import { GmapSAService } from './widgets/speed-average-heatmap/gmap.service';
+import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gmap.service';
 
 @NgModule({
   declarations: [
@@ -37,12 +31,7 @@ import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/av
     FooterComponent,
     WidgetareaComponent,
     ControlsidebarComponent,
-    WidgetHostDirective,
-    //Dynamic Widgets----->
-    TestboxComponent,
-    StationskortComponent,
-    SpeedAverageHeatmapComponent,
-    AverageSpeedHeatmapAllStationsComponent,
+    WidgetHostDirective
   ],
   imports: [
     BrowserModule,
@@ -50,7 +39,6 @@ import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/av
     DatePickerModule,
     HttpModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent], //<--- Dynamic Components resgiter here
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
   bootstrap: [AppComponent]
 })

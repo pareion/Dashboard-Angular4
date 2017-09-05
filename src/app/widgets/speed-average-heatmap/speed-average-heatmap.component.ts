@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
-import { GmapSAService } from '../../../components/widgets/speed-average-heatmap/gmap.service';
+import { WidgetComponent } from '../../services/widgetLibrary-service/widget.component';
+import { GmapSAService } from './gmap.service';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { FormsModule  } from '@angular/forms';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+import { DatePickerModule, DatePickerOptions, DateModel } from 'ng2-datepicker';
+
 
 @Component({
   selector: '[app-speed-average-heatmap]',
@@ -14,8 +15,8 @@ import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 })
 
 export class SpeedAverageHeatmapComponent implements OnInit {
-  @Input() id: number;
-  @Input() title: string;
+  @Input("3") id: number;
+  @Input("Average Speed Heatmap") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
   dateTo: DateModel;
