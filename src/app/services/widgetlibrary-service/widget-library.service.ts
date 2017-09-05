@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, CompilerFactory, ApplicationRef, Compiler } from '@angular/core';
 import { WidgetItem } from './widget-item';
 
+<<<<<<< HEAD
 //Component Import - Add here when you register component ---------->
 import { TestboxComponent } from './../../components/widgets/testbox/testbox.component';
 import { StationskortComponent } from './../../components/widgets/stationskort/stationskort.component';
@@ -9,15 +10,20 @@ import { SpeedAverageHeatmapComponent } from './../../components/widgets/speed-a
 import { StationCartypeAmountComponent } from './../../components/widgets/station-cartype-amount/station-cartype-amount.component';
 import { AverageSpeedHeatmapAllStationsComponent } from './../../components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
 //<------------------------------------------------------------------
+=======
+import {WidgetsModule} from '../../widgets/widgets.module';
+>>>>>>> b815e0980bff88a626085226e16bf6b1e1754b6f
 
 @Injectable()
 export class WidgetLibraryService {
-  widgets: WidgetItem[];
+  widgets: Map<number, WidgetItem>;
+  compiler: Compiler;
 
-  constructor() {
-    //init the array
-    this.widgets = [];
+  constructor(cFactory: CompilerFactory, appRef: ApplicationRef) {
+    this.widgets = new Map<number, WidgetItem>();
+
     //Register all widgets here
+<<<<<<< HEAD
     this.widgets.push(new WidgetItem(TestboxComponent, 1, 'Test Boks'));
     this.widgets.push(new WidgetItem(StationskortComponent, 2, 'Stationskort'));
     this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 3, "Heatmap gennemsnitshastighed"))
@@ -26,23 +32,26 @@ export class WidgetLibraryService {
     this.widgets.push(new WidgetItem(SpeedAverageHeatmapComponent, 5, "SpeedAverageHeatmapComponent"))
     this.widgets.push(new WidgetItem(AverageSpeedHeatmapAllStationsComponent, 7, "Average Speed Heatmap All Stations"))
     //--------> Add more here
+=======
+    this.compiler = cFactory.createCompiler();
+    
+      let fac = this.compiler.compileModuleAndAllComponentsSync(WidgetsModule);
+      
+      fac.componentFactories.forEach((facto) => {
+        let title = facto.inputs.find((obj) => {return obj.propName === "title"});
+        let i = (facto.inputs.find((obj) => {return obj.propName === "id"}));
+>>>>>>> b815e0980bff88a626085226e16bf6b1e1754b6f
 
-    //Sort array based on title name
-    this.widgets.sort(function (a, b) {
-      var nameA = a.title.toUpperCase();
-      var nameB = b.title.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      //same names
-      return 0;
-    });
+        if (title) {
+          let id = Number.parseInt(i.templateName);
+          let wItem = new WidgetItem(facto, id, title.templateName);
+          this.widgets.set(id, wItem);
+        }
+      });
+      console.log("generated widgets");
   }
 
   public getWidgetbyId(widgetId: number): WidgetItem {
-    return this.widgets.find(w => w.id == widgetId);
+    return this.widgets.get(widgetId);
   }
 }

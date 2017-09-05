@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { WidgetItem } from './../../services/widgetlibrary-service/widget-item';
 import { WidgetComponent } from './../../services/widgetLibrary-service/widget.component';
 import { WidgetHostDirective } from './../../directives/widget-host.directive';
@@ -19,8 +19,7 @@ export class WidgetareaComponent implements OnInit {
 
   constructor(
     private widgetService: WidgetLibraryService,
-    private dashboardController: DashboardcontrollerService,
-    private componentFactoryResolver: ComponentFactoryResolver) {
+    private dashboardController: DashboardcontrollerService) {
 
     //Set type of dashboard
     let activeDashboard = this.dashboardController.getActiveDashboard();
@@ -52,11 +51,10 @@ export class WidgetareaComponent implements OnInit {
     let widget: WidgetItem = this.widgetService.getWidgetbyId(widgetId);
     
     //Resolve component
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(widget.component);
     let viewContainerRef = this.widgetHost.viewContainerRef;
 
     //Create component into DOM and set values.
-    let componentRef = viewContainerRef.createComponent(componentFactory);
+    let componentRef = viewContainerRef.createComponent(widget.factory);
     (<WidgetComponent>componentRef.instance).id = widget.id;
     (<WidgetComponent>componentRef.instance).title = widget.title;
 

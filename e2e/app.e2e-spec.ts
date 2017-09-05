@@ -24,9 +24,7 @@ describe('open-traffic-data.web App', () => {
     expect(page.getBodyClass()).not.toContain('sidebar-collapse');
   });
 
-  it('number of info-boxes is 4', () => {
-    expect(page.getInfoBoxes().count()).toEqual(4);
-  });
+
 
   it('test sidemenu', () => {
     page.disableCssAnimations();
@@ -54,10 +52,10 @@ describe('open-traffic-data.web App', () => {
 
     page.clickLink('Widget Kartotek');
     page.clickLink('Stationskort');
-    expect(page.getBoxes().count()).toEqual(1);
+    expect(page.getBoxes().count()).toEqual(2);
     page.clickLink('Aktive Widgets');
     page.removeActiveWidget('Stationskort');
-    expect(page.getBoxes().count()).toEqual(0); 
+    expect(page.getBoxes().count()).toEqual(1); 
     
     page.clickLink('Widget Kartotek');    
     page.clickLink('Test Boks');
@@ -73,7 +71,7 @@ describe('open-traffic-data.web App', () => {
 
     page.clickLink('Widget Kartotek');
     page.clickLink('Stationskort');
-    expect(page.getBoxes().count()).toEqual(1);
+    expect(page.getBoxes().count()).toEqual(2);
     page.clickLink('Test Boks');
     expect(page.getBoxes().count()).toEqual(2);
   });

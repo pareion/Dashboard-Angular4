@@ -16,26 +16,12 @@ import { WidgetLibraryService } from './services/widgetLibrary-service/widget-li
 import { WidgetHostDirective } from './directives/widget-host.directive';
 import { UserService } from './services/user-service/user.service';
 import { DashboardcontrollerService } from "./services/dashboardcontroller-service/dashboardcontroller.service";
-
-import { GmapService } from './components/widgets/stationskort/gmap.service';
-import { GmapSAService } from './components/widgets/speed-average-heatmap/gmap.service';
-
-import { TestboxComponent } from './components/widgets/testbox/testbox.component';
-import { StationskortComponent } from './components/widgets/stationskort/stationskort.component';
+import { GmapService } from './widgets/stationskort/gmap.service';
+import { GmapSAService } from './widgets/speed-average-heatmap/gmap.service';
+import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gmap.service';
 
 import { HttpModule } from '@angular/http';
-import { TemplateDateTimePickerComponent } from './components/widgets/template-date-time-picker/template-date-time-picker.component';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
-
-import { SpeedAverageHeatmapComponent } from './components/widgets/speed-average-heatmap/speed-average-heatmap.component';
-
-import { DatePickerModule } from 'ng2-datepicker';
-import { StationCartypeAmountComponent } from './components/widgets/station-cartype-amount/station-cartype-amount.component';
-import { GmapSAASService } from './components/widgets/average-speed-heatmap-all-stations/gmap.service';
-
-
-import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/average-speed-heatmap-all-stations/average-speed-heatmap-all-stations.component';
-
 //danymic components
 
 @NgModule({
@@ -47,25 +33,15 @@ import { AverageSpeedHeatmapAllStationsComponent } from './components/widgets/av
     FooterComponent,
     WidgetareaComponent,
     ControlsidebarComponent,
-    WidgetHostDirective,
-    //Dynamic Widgets----->
-    TestboxComponent,
-    StationskortComponent,
-    SpeedAverageHeatmapComponent,
-    TemplateDateTimePickerComponent,
-    StationCartypeAmountComponent,
-  
-    AverageSpeedHeatmapAllStationsComponent
+    WidgetHostDirective
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    DatePickerModule,
     NKDatetimeModule
   ],
-  entryComponents: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, TemplateDateTimePickerComponent, StationCartypeAmountComponent,AverageSpeedHeatmapAllStationsComponent], //<--- Dynamic Components resgiter here
-  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService,GmapSAASService],
+  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
