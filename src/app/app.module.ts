@@ -1,9 +1,7 @@
 //Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule  } from '@angular/forms';
-import {HttpModule} from '@angular/http';
-import { DatePickerModule } from 'ng2-datepicker';
+import { FormsModule } from '@angular/forms';
 
 //Layout
 import { AppComponent } from './app.component';
@@ -22,6 +20,9 @@ import { GmapService } from './widgets/stationskort/gmap.service';
 import { GmapSAService } from './widgets/speed-average-heatmap/gmap.service';
 import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gmap.service';
 
+import { HttpModule } from '@angular/http';
+//danymic components
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +36,8 @@ import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gm
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    DatePickerModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
   bootstrap: [AppComponent]
