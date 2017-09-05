@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
-import { GmapSAASService } from '../../../components/widgets/average-speed-heatmap-all-stations/gmap.service';
+import { WidgetComponent } from '../../services/widgetLibrary-service/widget.component';
+import { GmapSAASService } from './gmap.service';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -13,8 +13,8 @@ import { DatePickerOptions, DateModel } from 'ng2-datepicker';
   styleUrls: ['./average-speed-heatmap-all-stations.component.css']
 })
 export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
-  @Input() id: number;
-  @Input() title: string;
+  @Input("4") id: number;
+  @Input("Average Speed Heatmap all stations") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
   dateTo: DateModel;

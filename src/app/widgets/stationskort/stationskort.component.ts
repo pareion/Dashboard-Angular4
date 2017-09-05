@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { WidgetComponent } from '../../../services/widgetLibrary-service/widget.component';
-import { GmapService } from '../../../components/widgets/stationskort/gmap.service';
+import { WidgetComponent } from '../../services/widgetLibrary-service/widget.component';
+import { GmapService } from './gmap.service';
 import { Http, Response } from '@angular/http';
 
 //used to map jsonstring to a collection of data
@@ -12,8 +12,8 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./stationskort.component.css']
 })
 export class StationskortComponent implements WidgetComponent, OnInit {
-  @Input() id: number;
-  @Input() title: string;
+  @Input("2") id: number;
+  @Input("Stationskort") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
   private apiUrl = "http://adm-trafik-01.odknet.dk:2002/api/GetAllStations/Stations";
