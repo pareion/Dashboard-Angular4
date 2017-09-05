@@ -18,7 +18,7 @@ export class TemplateDateTimePickerComponent  implements WidgetComponent, OnInit
     autoclose: true,
     todayHighlight: true,
     assumeNearbyYear: true,
-    format: 'dd MM yyyy',
+    format: 'd MM yyyy',
     icon : 'fa fa-calendar'
   }
 
