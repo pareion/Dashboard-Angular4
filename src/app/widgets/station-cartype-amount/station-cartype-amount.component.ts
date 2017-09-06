@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map';
 export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
 
   @Input("6") id: number;
-  @Input("Biltyper") title: string;
+  @Input("Antal af forskellige biltyper") title: string;
 
   dateFrom: Date = new Date();
   dateTo: Date = new Date();
@@ -26,16 +26,16 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     assumeNearbyYear: true,
   }
 
-  // Antal biltyper 
+  // car types 
   private apiUrl: string;
   data: any[];
   carTypeName: string;
 
-  // Alle stationer
-
+  // all stations
   private apiUrlStations: string = "http://adm-trafik-01.odknet.dk:2004/api/GetAllStations/Stations";
   dataStations: any[];
   selectedItem: string;
+  areacode: number;
 
   constructor(private http: Http) {
     this.getAllStations();
@@ -50,13 +50,12 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     })
   
   }
-
   getSelectedStation() {
 
     this.dataStations.forEach(station => {
-
       if (station.name == this.selectedItem ) {
         this.selectedItem = station.name;
+        this.areacode = station.areacode;
       }
     });
 
@@ -68,9 +67,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     var dateTo = this.dateTo.toISOString().slice(0, 10);
     var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
 
-
-    var fixedstring = this.selectedItem.split(' ')[0];
-    this.apiUrl = "http://adm-trafik-01.odknet.dk:2004/api/CarType/GetCarTypes?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&station=" + fixedstring;
+    this.apiUrl = "http://adm-trafik-01.odknet.dk:2004/api/CarType/GetCarTypes?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&areacode=" + this.areacode;
     console.log(this.apiUrl)
 
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(data => {

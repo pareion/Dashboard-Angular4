@@ -5,7 +5,8 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { FormsModule  } from '@angular/forms';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: '[app-average-speed-heatmap-all-stations]',
@@ -14,31 +15,41 @@ import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 })
 export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   @Input("4") id: number;
-  @Input("Average Speed Heatmap all stations") title: string;
+  @Input("Alle stationer: Gennemsnitshastighed") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
-  dateTo: DateModel;
-  dateFrom: DateModel;
-  options: DatePickerOptions;
-  options2: DatePickerOptions;
   markersRed: any = [];
   markersGreen: any = [];
   markersYellow: any = [];
   private apiUrl;
+
+  // datetime picker
+  dateFrom: Date = new Date();
+  dateTo: Date = new Date();
+  datepickerOpts = {
+    autoclose: true,
+    todayHighlight: true,
+    assumeNearbyYear: true,
+    format: 'd MM yyyy',
+    icon : 'fa fa-calendar'
+  }
+
   constructor(private gmapSAService: GmapSAASService, private http: Http) { 
-    this.options = new DatePickerOptions();
-    this.options2 = new DatePickerOptions();
-    this.options.format = "YYYY-MM-DD";
-    this.options2.format = "YYYY-MM-DD";
   }
 
   ngOnInit() {
     this.initGoogleMap();
   }
   onClick(){
-    this.apiUrl= "http://adm-trafik-01.odknet.dk:2003/api/AverageSpeed/GetMeasurementsBetweenDatesAllStations?from="+this.dateTo.formatted+"&to="+this.dateFrom.formatted;
+    var dateFrom = this.dateFrom.toISOString().slice(0, 10);
+    var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
+    var dateTo = this.dateTo.toISOString().slice(0, 10);
+    var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
+
+    this.apiUrl= "http://adm-trafik-01.odknet.dk:2003/api/AverageSpeed/GetMeasurementsBetweenDatesAllStations?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo;
     this.LoadHeatmap()
   }
+
   initGoogleMap(){
     (this.gmapSAService.initMap(this.mapRef.nativeElement, {
       center: { lat: 55.3931161, lng: 10.3854726 },

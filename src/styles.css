@@ -53,10 +53,5 @@
 @media (min-width: 992px) and (max-width: 1800px){
     datetime .input-group {
         margin-bottom: 10px !important;
-        
     }
-    .widget-style{
-        background-color: red;
-    }
-   
 }
