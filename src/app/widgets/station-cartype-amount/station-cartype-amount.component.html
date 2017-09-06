@@ -29,7 +29,7 @@
 
             <select (click)="getSelectedStation()" class="styled-select" [(ngModel)]="selectedItem">
                         <option *ngFor="let item of dataStations" [ngValue]="item.name"> {{ item.name }}</option>
-                      </select>
+            </select>
 
             <button type="button" class="btn btn-primary spacing-btn small-mobile" (click)="getApiData()">Udregn</button>
             <br><br>
@@ -51,8 +51,6 @@
                 </tbody>
               </table>
             </div>
-
-
           </div>
 
         </div>
