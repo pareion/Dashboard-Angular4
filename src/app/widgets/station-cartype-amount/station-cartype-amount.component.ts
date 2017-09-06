@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map';
 export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
 
   @Input("6") id: number;
-  @Input("Biltyper") title: string;
+  @Input("Antal af forskellige biltyper") title: string;
 
   dateFrom: Date = new Date();
   dateTo: Date = new Date();
@@ -26,19 +26,19 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     assumeNearbyYear: true,
   }
 
-  // Antal biltyper 
+  // car types 
   private apiUrl: string;
   data: any[];
   carTypeName: string;
 
-  // Alle stationer
+  // all stations
   private apiUrlStations: string = "http://adm-trafik-01.odknet.dk:2004/api/GetAllStations/Stations";
   dataStations: any[];
   selectedItem: string;
   areacode: number;
+
   constructor(private http: Http) {
     this.getAllStations();
-   
   }
 
   ngOnInit() {
@@ -47,7 +47,6 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
   getAllStations() {
     this.http.get(this.apiUrlStations).map((res: Response) => res.json()).subscribe(data => {
       this.dataStations = data;
-      console.log(this.dataStations);
     })
   
   }
@@ -56,7 +55,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     this.dataStations.forEach(station => {
       if (station.name == this.selectedItem ) {
         this.selectedItem = station.name;
-        this.areacode = station.areacode
+        this.areacode = station.areacode;
       }
     });
 

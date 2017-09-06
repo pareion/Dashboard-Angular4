@@ -5,8 +5,9 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { FormsModule  } from '@angular/forms';
-import { DatePickerModule, DatePickerOptions, DateModel } from 'ng2-datepicker';
 
+
+import * as $ from 'jquery';
 
 @Component({
   selector: '[app-speed-average-heatmap]',
@@ -19,27 +20,61 @@ export class SpeedAverageHeatmapComponent implements OnInit {
   @Input("Average Speed Heatmap") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
-  dateTo: DateModel;
-  dateFrom: DateModel;
-  options: DatePickerOptions;
-  options2: DatePickerOptions;
   station: String;
 
   heatmap : google.maps.visualization.HeatmapLayer;
   data: any = [];
 
+   // datetime picker
+   dateFrom: Date = new Date();
+   dateTo: Date = new Date();
+   datepickerOpts = {
+     autoclose: true,
+     todayHighlight: true,
+     assumeNearbyYear: true,
+     format: 'd MM yyyy',
+     icon : 'fa fa-calendar'
+   }
+
+   // all stations
+  private apiUrlStations: string = "http://adm-trafik-01.odknet.dk:2001/api/GetAllStations/Stations";
+  dataStations: any[];
+  selectedItem: string;
+  areacode: number;
+
   private apiUrl;
+
   constructor(private gmapSAService: GmapSAService, private http: Http) { 
-    this.options = new DatePickerOptions();
-    this.options2 = new DatePickerOptions();
-    this.options.format = "YYYY-MM-DD";
-    this.options2.format = "YYYY-MM-DD";
   }
   ngOnInit() {
-    this.initGoogleMap()
+    this.initGoogleMap();
+    this.getAllStations();
   } 
+
+  getAllStations() {
+    this.http.get(this.apiUrlStations).map((res: Response) => res.json()).subscribe(data => {
+      this.dataStations = data;
+    })
+  
+  }
+  getSelectedStation() {
+
+    this.dataStations.forEach(station => {
+      if (station.name == this.selectedItem ) {
+        this.selectedItem = station.name;
+        this.areacode = station.areacode;
+      }
+    });
+
+  }
+
   onClick(){
-    this.apiUrl= "http://adm-trafik-01.odknet.dk:2001/api/AverageSpeed/GetMeasurementsBetweenDates?from="+this.dateTo.formatted+"&to="+this.dateFrom.formatted+"&station="+this.station;
+    var dateFrom = this.dateFrom.toISOString().slice(0, 10);
+    var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
+    var dateTo = this.dateTo.toISOString().slice(0, 10);
+    var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
+
+    this.apiUrl= "http://adm-trafik-01.odknet.dk:2001/api/AverageSpeed/GetMeasurementsBetweenDates?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&areaCode=" + this.areacode;
     this.LoadHeatmap()
     console.log(this.apiUrl)
     console.log("clicked!")
