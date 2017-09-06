@@ -32,7 +32,6 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
   carTypeName: string;
 
   // Alle stationer
-
   private apiUrlStations: string = "http://adm-trafik-01.odknet.dk:2004/api/GetAllStations/Stations";
   dataStations: any[];
   selectedItem: string;
@@ -67,7 +66,6 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
     var dateTo = this.dateTo.toISOString().slice(0, 10);
     var timeTo = this.dateTo.getHours() + ":" + (this.dateTo.getMinutes() < 10 ? '0' : '') + this.dateTo.getMinutes();
-
 
     var fixedstring = this.selectedItem.split(' ')[0];
     this.apiUrl = "http://adm-trafik-01.odknet.dk:2004/api/CarType/GetCarTypes?from=" + dateFrom + "%20" + timeFrom + "&to=" + dateTo + "%20" + timeTo + "&station=" + fixedstring;
