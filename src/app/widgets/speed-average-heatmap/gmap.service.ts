@@ -1,5 +1,5 @@
 const getScriptSrc = (callbackName) => {
-  return `https://maps.googleapis.com/maps/api/js?key=AIzaSyAqg1BzcJOAGeLAIbA5tgrHBWtrfc6Rx5U&callback=${callbackName}&libraries=visualization`;
+  return `https://maps.googleapis.com/maps/api/js?key=AIzaSyCSNz5K6EolI-EWwdD0ej1GRQSLkb173-k&callback=${callbackName}&libraries=visualization`;
 }
 
 export class GmapSAService {

@@ -12,7 +12,8 @@ import * as $ from 'jquery';
 @Component({
   selector: '[app-speed-average-heatmap]',
   templateUrl: './speed-average-heatmap.component.html',
-  styleUrls: ['./speed-average-heatmap.component.css']
+  styleUrls: ['./speed-average-heatmap.component.css'],
+  providers: [GmapSAService]
 })
 
 export class SpeedAverageHeatmapComponent implements OnInit {
