@@ -17,7 +17,7 @@ import * as $ from 'jquery';
 
 export class SpeedAverageHeatmapComponent implements OnInit {
   @Input("3") id: number;
-  @Input("Average Speed Heatmap") title: string;
+  @Input("Enkelt station: Gennemsnitshastighed") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
   station: String;

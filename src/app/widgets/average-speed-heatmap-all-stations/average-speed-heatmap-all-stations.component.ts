@@ -15,7 +15,7 @@ import * as $ from 'jquery';
 })
 export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   @Input("4") id: number;
-  @Input("Gennemsnitshastighed på alle stationer") title: string;
+  @Input("Alle stationer: Gennemsnitshastighed") title: string;
   @ViewChild('map') mapRef: ElementRef;
 
   markersRed: any = [];
