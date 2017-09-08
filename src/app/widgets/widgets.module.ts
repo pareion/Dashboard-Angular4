@@ -21,7 +21,7 @@ import { LoadingModule } from 'ngx-loading';
     FormsModule,
     LoadingModule
   ],
-  declarations: [TestboxComponent, StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent, TemplateDateTimePickerComponent, StationCartypeAmountComponent],
+  declarations: [ StationskortComponent, SpeedAverageHeatmapComponent, AverageSpeedHeatmapAllStationsComponent, StationCartypeAmountComponent],
   schemas: [ ],
   providers: [LoadingModule]
 })
