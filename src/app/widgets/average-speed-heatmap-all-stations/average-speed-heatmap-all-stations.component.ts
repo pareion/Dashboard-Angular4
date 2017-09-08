@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetComponent } from '../../services/widgetLibrary-service/widget.component';
 import { GmapSAASService } from './gmap.service';
 import { Http, Response } from '@angular/http';
@@ -11,9 +11,10 @@ import * as $ from 'jquery';
 @Component({
   selector: '[app-average-speed-heatmap-all-stations]',
   templateUrl: './average-speed-heatmap-all-stations.component.html',
-  styleUrls: ['./average-speed-heatmap-all-stations.component.css']
+  styleUrls: ['./average-speed-heatmap-all-stations.component.css'],
+  providers: [GmapSAASService]
 })
-export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
+export class AverageSpeedHeatmapAllStationsComponent implements OnInit, OnDestroy {
   @Input("4") id: number;
   @Input("Alle stationer: Gennemsnitshastighed") title: string;
   @ViewChild('map') mapRef: ElementRef;
@@ -40,6 +41,11 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   ngOnInit() {
     this.initGoogleMap();
   }
+
+  ngOnDestroy(){
+    this.gmapSAService.delete();
+  }
+
   onClick(){
     var dateFrom = this.dateFrom.toISOString().slice(0, 10);
     var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
@@ -51,7 +57,7 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
   }
 
   initGoogleMap(){
-    (this.gmapSAService.initMap(this.mapRef.nativeElement, {
+    (this.gmapSAService.initMap(this.title, this.mapRef.nativeElement, {
       center: { lat: 55.3931161, lng: 10.3854726 },
       scrollwheel: true,
       zoom: 11,
@@ -61,7 +67,9 @@ export class AverageSpeedHeatmapAllStationsComponent implements OnInit {
       mapTypeControl: false
     },null));
   }
+
   LoadHeatmap():void{
+    this.gmapSAService.clearHeatmaps();
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(response => {
 
       if(response){
