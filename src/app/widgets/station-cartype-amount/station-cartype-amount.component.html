@@ -34,7 +34,7 @@
             <button type="button" class="btn btn-primary spacing-btn small-mobile" (click)="getApiData()">Udregn</button>
             <br><br>
 
-            <div class="table-responsive table-styling">
+            <div *ngIf="showContentBool" class="table-responsive table-styling">
               <table class="table table-bordered table-hover ">
                 <thead>
                   <tr>
