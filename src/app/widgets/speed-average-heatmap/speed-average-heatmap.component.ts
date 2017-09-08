@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { WidgetComponent } from '../../services/widgetLibrary-service/widget.component';
+import { GoogleMapsContainerService } from '../../services/googlemapscontainer/googlemapscontainer.service';
 import { GmapSAService } from './gmap.service';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -16,7 +17,7 @@ import * as $ from 'jquery';
   providers: [GmapSAService]
 })
 
-export class SpeedAverageHeatmapComponent implements OnInit {
+export class SpeedAverageHeatmapComponent implements OnInit, OnDestroy {
   @Input("3") id: number;
   @Input("Enkelt station: Gennemsnitshastighed") title: string;
   @ViewChild('map') mapRef: ElementRef;
@@ -52,6 +53,10 @@ export class SpeedAverageHeatmapComponent implements OnInit {
     this.getAllStations();
   } 
 
+  ngOnDestroy(){
+    this.gmapSAService.delete();
+  }
+
   getAllStations() {
     this.http.get(this.apiUrlStations).map((res: Response) => res.json()).subscribe(data => {
       this.dataStations = data;
@@ -64,6 +69,7 @@ export class SpeedAverageHeatmapComponent implements OnInit {
       if (station.name == this.selectedItem ) {
         this.selectedItem = station.name;
         this.areacode = station.areacode;
+        return;
       }
     });
 
@@ -81,7 +87,7 @@ export class SpeedAverageHeatmapComponent implements OnInit {
     console.log("clicked!")
   }
   initGoogleMap(){
-    (this.gmapSAService.initMap(this.mapRef.nativeElement, {
+    (this.gmapSAService.initMap(this.title, this.mapRef.nativeElement, {
       center: { lat: 55.3931161, lng: 10.3854726 },
       scrollwheel: true,
       zoom: 11,
