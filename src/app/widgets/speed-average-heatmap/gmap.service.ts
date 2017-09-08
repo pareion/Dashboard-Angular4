@@ -32,13 +32,13 @@ export class GmapSAService {
         ],
         map: this.map
       });
-      if(avgspeed > 30){
+      if(avgspeed > 55){
         this.heatmap.set('gradient', ['rgba(255, 0, 0, 0)',
         'rgba(255, 0, 0, 1)'])
-      }else if(avgspeed <= 30 && avgspeed > 0){
+      }else if(avgspeed < 45 && avgspeed > 1){
         this.heatmap.set('gradient', ['rgba(255, 255, 0, 0)',
         'rgba(255, 255, 0, 1)'])
-      }else {
+      }else if(avgspeed <= 55 && avgspeed >= 45) {
         this.heatmap.set('gradient', ['rgba(0, 225, 0, 0)',
         'rgba(0, 255, 0, 1)'])
       }

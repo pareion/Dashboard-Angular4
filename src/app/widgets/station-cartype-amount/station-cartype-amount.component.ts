@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 import { Http, Response } from '@angular/http';
 //used to map jsonstring to a collection of data
 import 'rxjs/add/operator/map';
+declare var swal: any;
 
 @Component({
   selector: '[app-station-cartype-amount]',
@@ -24,7 +25,13 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     autoclose: true,
     todayHighlight: true,
     assumeNearbyYear: true,
+    format: 'd MM yyyy',
+    icon : 'fa fa-calendar'
   }
+
+  //spinner
+  showContentBool:boolean = false;
+  public loading = false;
 
   // car types 
   private apiUrl: string;
@@ -62,6 +69,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
   }
 
   getApiData() {
+    this.loading = true;
     var dateFrom = this.dateFrom.toISOString().slice(0, 10);
     var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
     var dateTo = this.dateTo.toISOString().slice(0, 10);
@@ -71,7 +79,15 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     console.log(this.apiUrl)
 
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(data => {
-      this.data = data;
+      if(data.length < 1){
+        swal ( "Ingen data fundet" ,  "Vælg andet tidspunkt" ,  "error" )
+        this.loading = false;
+      }
+      else{
+        this.data = data;
+        this.loading = false;
+        this.showContentBool = true;
+      }
     })
   }
 

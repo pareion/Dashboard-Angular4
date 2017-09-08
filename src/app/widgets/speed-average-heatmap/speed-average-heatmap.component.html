@@ -4,6 +4,7 @@
       <li class="pull-left header"><i class="fa fa-bars"></i>{{ title }}</li>
     </ul>
     <div class="tab-content no-padding">
+        <ngx-loading [show]="loading" ></ngx-loading>
       <div class=" tab-pane active widget-frame">
 
         <div class="row widget-style">
@@ -30,6 +31,7 @@
             </select>
             
             <button type="button" (click)="onClick()" class="btn btn-primary small-mobile custom-btn-stationsheatmap">Udregn</button>
+            <p><b>Rød:</b> over 55km/t  <b>Grøn:</b> mellem 55 og 45 km/t <b>Gul:</b> under 45 km/t  </p>
           </div>
         </div>
         <div class="row">

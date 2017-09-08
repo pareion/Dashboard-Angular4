@@ -22,6 +22,8 @@ import { GoogleMapsContainerService } from "./services/googlemapscontainer/googl
 import { HttpModule } from '@angular/http';
 
 //danymic components
+import { LoadingModule } from 'ngx-loading';
+
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    LoadingModule
   ],
-  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GoogleMapsContainerService ],
+  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GoogleMapsContainerService, LoadingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
