@@ -30,6 +30,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
   }
 
   showContentBool:boolean = false;
+  public loading = false;
 
   // car types 
   private apiUrl: string;
@@ -67,8 +68,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
   }
 
   getApiData() {
-    //this.spinnerService.show();
-
+    this.loading = true;
     var dateFrom = this.dateFrom.toISOString().slice(0, 10);
     var timeFrom = this.dateFrom.getHours() + ":" + (this.dateFrom.getMinutes() < 10 ? '0' : '') + this.dateFrom.getMinutes();
     var dateTo = this.dateTo.toISOString().slice(0, 10);
@@ -80,11 +80,11 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     this.http.get(this.apiUrl).map((res: Response) => res.json()).subscribe(data => {
       if(data.length < 1){
         swal ( "Ingen data fundet" ,  "Vælg andet tidspunkt" ,  "error" )
-     
+        this.loading = false;
       }
       else{
         this.data = data;
-
+        this.loading = false;
         this.showContentBool = true;
       }
     })

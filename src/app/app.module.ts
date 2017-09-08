@@ -22,6 +22,8 @@ import { GmapSAASService } from './widgets/average-speed-heatmap-all-stations/gm
 
 import { HttpModule } from '@angular/http';
 //danymic components
+import { LoadingModule } from 'ngx-loading';
+
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    LoadingModule
   ],
-  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService ],
+  providers: [WidgetLibraryService, UserService, DashboardcontrollerService, GmapService, GmapSAService, GmapSAASService, LoadingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
