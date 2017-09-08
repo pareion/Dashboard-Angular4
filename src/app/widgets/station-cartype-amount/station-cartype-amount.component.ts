@@ -29,6 +29,7 @@ export class StationCartypeAmountComponent implements WidgetComponent, OnInit {
     icon : 'fa fa-calendar'
   }
 
+  //spinner
   showContentBool:boolean = false;
   public loading = false;
 
